@@ -157,7 +157,7 @@ function PanelExperiences() {
   return (
     <Panel bgWord="Terrain">
       <div className="w-full max-w-3xl">
-        <SectionLabel n="02" title="Expériences" />
+        <SectionLabel n="03" title="Expériences" />
         <div className="space-y-7 overflow-y-auto" style={{ maxHeight: "70vh" }}>
           {xps.map((x, i) => (
             <div key={i} className="flex gap-8">
@@ -217,7 +217,7 @@ function PanelFormation() {
   return (
     <Panel bgWord="École">
       <div className="w-full max-w-3xl">
-        <SectionLabel n="03" title="Formation" />
+        <SectionLabel n="04" title="Formation" />
         <div className="space-y-10">
           {schools.map((s, i) => (
             <div key={i} className="flex gap-8">
@@ -249,22 +249,16 @@ function PanelAustralie() {
   return (
     <Panel bgWord="Australie">
       <div className="w-full max-w-3xl">
-        <SectionLabel n="04" title="Australie — 2018 / 2020" />
+        <SectionLabel n="05" title="Australie — 2018 / 2020" />
         <p className="font-serif text-2xl md:text-4xl text-foreground font-light leading-snug mb-12 max-w-xl">
-          Deux ans au bout du monde.<br />
-          <span className="text-foreground/50 italic">Matelot, superviseur, immigrant.</span>
+          Deux ans au bout du monde.
         </p>
         <p className="font-sans text-sm text-foreground/50 leading-relaxed max-w-lg">
-          Immersion totale en anglais dès le premier jour — pêche au thon en mer de plusieurs mois,
-          puis supervision d'une équipe de cueilleurs en ferme. Première expérience de management,
-          premiers objectifs quotidiens à tenir. L'anglais bilingue n'est pas venu d'une salle de classe.
+          Pêche au thon en mer, puis supervision d'une équipe en ferme — l'anglais s'est appris
+          en faisant, pas en étudiant. Ce passage a posé les bases d'un rapport direct au terrain,
+          à l'autonomie, et à des équipes internationales. C'est aujourd'hui ma langue de travail
+          au quotidien.
         </p>
-        <div className="mt-10 border-l border-accent/30 pl-8">
-          <p className="font-mono text-[9px] text-accent tracking-widest uppercase mb-2">Résultat</p>
-          <p className="font-serif text-lg text-foreground/70 font-light italic">
-            Langue de travail principale depuis — aujourd'hui quotidien avec Londres.
-          </p>
-        </div>
       </div>
     </Panel>
   );
@@ -302,7 +296,7 @@ function PanelSkills() {
   return (
     <Panel bgWord="Skills">
       <div className="w-full max-w-3xl">
-        <SectionLabel n="05" title="Outils & Langues" />
+        <SectionLabel n="02" title="Outils & Langues" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {groups.map((g) => (
             <div key={g.category}>
@@ -345,6 +339,7 @@ function PanelHobbies() {
     <Panel bgWord="Ailleurs">
       <div className="w-full max-w-2xl">
         <SectionLabel n="06" title="Ailleurs" />
+
         <div className="flex flex-wrap gap-8 mb-16">
           {hobbies.map((h) => (
             <div key={h.label} className="flex flex-col items-center gap-2">
@@ -456,10 +451,10 @@ export default function SceneMoiCV({ onBack }: Props) {
         style={{ display: "flex", height: "100%", willChange: "transform" }}
       >
         <PanelIntro />
+        <PanelSkills />
         <PanelExperiences />
         <PanelFormation />
         <PanelAustralie />
-        <PanelSkills />
         <PanelHobbies />
       </div>
 
