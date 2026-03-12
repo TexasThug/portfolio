@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SceneMoiCV from "./SceneMoiCV";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -304,7 +305,7 @@ export default function ConstellationHub() {
       if (leftEl) {
         gsap.to(leftEl, {
           opacity: 0, duration: 0.2,
-          onComplete: () => gsap.to(leftEl, { opacity: 1, duration: 0.3, delay: 0.15 }),
+          onComplete: () => { gsap.to(leftEl, { opacity: 1, duration: 0.3, delay: 0.15 }); },
         });
       }
     },
@@ -417,8 +418,13 @@ export default function ConstellationHub() {
         </div>
       )}
 
-      {/* ── UNIVERSE ── */}
-      {activeNode && (
+      {/* ── MOI CV — overlay fixe horizontal scroll ── */}
+      {activeNode === "about" && (
+        <SceneMoiCV onBack={handleBack} />
+      )}
+
+      {/* ── UNIVERSE (Data / IA / Stratégie) ── */}
+      {activeNode && activeNode !== "about" && (
         <div ref={universeRef} className="min-h-screen flex flex-col" style={{ opacity: 0 }}>
 
           <button
@@ -428,31 +434,7 @@ export default function ConstellationHub() {
             ← Constellation
           </button>
 
-          {activeNode === "about" ? (
-            <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-16 px-8 md:px-20 py-24">
-              <div className="max-w-md space-y-6">
-                <p className="font-mono text-xs text-accent tracking-[0.3em] uppercase">Moi</p>
-                <p className="font-serif text-3xl md:text-4xl text-foreground font-light leading-snug">
-                  Ingénieur d&apos;affaires reconverti vers la Data.
-                </p>
-                <p className="font-sans text-base text-foreground/60 leading-relaxed">
-                  Je ne suis pas expert dans un seul domaine — je suis celui qui fait tenir les pièces ensemble.
-                  Analyser, comprendre, connecter : que ce soit sur un échiquier, dans un roman de Tolstoï ou dans un dashboard Power BI.
-                </p>
-                <p className="font-sans text-base text-foreground/60 leading-relaxed">
-                  Mon parcours mêle business, data et créativité. Pas malgré ça — grâce à ça.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {["Eugenia Business School", "Albert School", "Mines de Paris"].map((tag) => (
-                    <span key={tag} className="font-mono text-[10px] tracking-widest uppercase border border-foreground/20 text-foreground/40 px-3 py-1">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="flex-1 flex flex-col md:flex-row min-h-screen">
+          <div className="flex-1 flex flex-col md:flex-row min-h-screen">
               <div
                 id="univ-left-content"
                 className="w-full md:w-2/5 flex flex-col justify-center px-8 md:px-16 py-24 md:py-16 gap-6 border-r border-foreground/10"
@@ -533,7 +515,6 @@ export default function ConstellationHub() {
                 </div>
               </div>
             </div>
-          )}
         </div>
       )}
     </section>
