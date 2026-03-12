@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SceneMoiCV from "./SceneMoiCV";
+import SceneDataHub from "./SceneDataHub";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,10 +89,10 @@ const GalaxyNode = ({
 
 // ── Clickable nodes
 const mainNodes: { id: NodeId; label: string; x: number; y: number; size: number }[] = [
-  { id: "about",     label: "Moi",       x: 15,  y: 12,  size: 1.4 },
+  { id: "about",     label: "À propos",  x: 15,  y: 12,  size: 1.4 },
   { id: "data",      label: "Data",      x: 35,  y: 50,  size: 1.9 },
   { id: "ia",        label: "IA",        x: 68,  y: 18,  size: 1.9 },
-  { id: "strategie", label: "Stratégie", x: 82,  y: 54,  size: 1.9 },
+  { id: "strategie", label: "Cas Business", x: 78,  y: 54,  size: 1.9 },
 ];
 
 // ── Decorative stars (not clickable)
@@ -402,7 +403,9 @@ export default function ConstellationHub() {
                   {/* Label */}
                   <text
                     x={node.x}
-                    y={node.y + node.size * 2.8 + 4}
+                    y={node.id === "about"
+                      ? node.y - node.size * 2.8 - 2
+                      : node.y + node.size * 2.8 + 4}
                     textAnchor="middle"
                     fontSize={node.id === "about" ? "3.0" : "3.5"}
                     fill="#f0ebe2"
@@ -428,8 +431,13 @@ export default function ConstellationHub() {
         <SceneMoiCV onBack={handleBack} />
       )}
 
-      {/* ── UNIVERSE (Data / IA / Stratégie) ── */}
-      {activeNode && activeNode !== "about" && (
+      {/* ── DATA HUB — liste des projets ── */}
+      {activeNode === "data" && (
+        <SceneDataHub onBack={handleBack} />
+      )}
+
+      {/* ── UNIVERSE (IA / Stratégie) ── */}
+      {activeNode && activeNode !== "about" && activeNode !== "data" && (
         <div ref={universeRef} className="min-h-screen flex flex-col" style={{ opacity: 0 }}>
 
           <button

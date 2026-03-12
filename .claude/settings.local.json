@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /c/Users/PC/.claude/projects/C--Users-PC-Desktop-Dossier-Perso-Github-portfolio/ && wc -l /c/Users/PC/.claude/projects/C--Users-PC-Desktop-Dossier-Perso-Github-portfolio/*.jsonl)",
+      "Bash(cd \"C:/Users/PC/Desktop/Dossier_Perso/Github/portfolio\" && npx tsc --noEmit 2>&1 | head -30)",
+      "Bash(cp \"C:/Users/PC/Desktop/Dossier_Perso/Github/portfolio/src/components/ConstellationHub.tsx\" \"C:/Users/PC/Desktop/Dossier_Perso/Github/portfolio/site/src/components/ConstellationHub.tsx\" && cd \"C:/Users/PC/Desktop/Dossier_Perso/Github/portfolio\" && npx tsc --noEmit 2>&1 | grep -v \"^npm\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(cp \"/c/Users/PC/Downloads/CV Joffray DeAlberto .pdf\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/CV-Joffray-DeAlberto.pdf\" && cp \"/c/Users/PC/Downloads/CV Joffray DeAlberto .pdf\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/site/public/CV-Joffray-DeAlberto.pdf\" && echo \"OK\")",
+      "Bash(git branch:*)",
+      "Bash(git config:*)",
+      "Bash(cp \"/c/Users/PC/Downloads/Kobe.jpg\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/kobe.jpg\" && cp \"/c/Users/PC/Downloads/Kobe.jpg\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/site/public/kobe.jpg\" && echo \"OK\")",
+      "Bash(cp \"/c/Users/PC/Desktop/Dossier_Perso/Github/Python_works/python_exercises/data_analysis_projects/top5_pays.png\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/netflix-top5-pays.png\" && cp \"/c/Users/PC/Desktop/Dossier_Perso/Github/Python_works/python_exercises/data_analysis_projects/evolution_sorties.png\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/netflix-evolution-sorties.png\" && cp \"/c/Users/PC/Desktop/Dossier_Perso/Github/Python_works/python_exercises/data_analysis_projects/films_vs_series.png\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/netflix-films-vs-series.png\" && cp \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/netflix-top5-pays.png\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/site/public/\" && cp \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/netflix-evolution-sorties.png\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/site/public/\" && cp \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/public/netflix-films-vs-series.png\" \"/c/Users/PC/Desktop/Dossier_Perso/Github/portfolio/site/public/\" && echo \"OK\")"
+    ]
+  }
+}
