@@ -244,12 +244,12 @@ export default function ConstellationHub() {
         display: "block", position: "fixed",
         left: sx, top: sy,
         xPercent: -50, yPercent: -50,
-        width: 20, height: 20,
+        width: 28, height: 28,
         borderRadius: "50%", scale: 1, opacity: 1, zIndex: 50,
       });
 
       gsap.to(overlayEl, {
-        scale: 150, duration: 0.9, ease: "power3.inOut",
+        scale: 220, duration: 0.65, ease: "expo.in",
         onComplete: () => {
           gsap.set(overlayEl, { display: "none" });
           setActiveNode(nodeId);
@@ -322,7 +322,12 @@ export default function ConstellationHub() {
 
       <div
         ref={overlayRef}
-        style={{ display: "none", background: "var(--background)", position: "fixed", zIndex: 50 }}
+        style={{
+          display: "none",
+          background: "radial-gradient(circle at center, rgba(255,220,180,0.95) 0%, rgba(196,30,30,0.7) 18%, rgba(80,10,60,0.85) 40%, rgba(20,5,30,0.97) 65%, #0e0e0e 100%)",
+          position: "fixed",
+          zIndex: 50,
+        }}
       />
 
       {/* ── CONSTELLATION ── */}

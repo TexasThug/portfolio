@@ -87,7 +87,6 @@ function PanelIntro() {
             >
               leffejeff@gmail.com
             </a>
-            <p className="font-mono text-[10px] text-foreground/35 mt-0.5">07 85 80 89 75</p>
           </div>
         </div>
       </div>
@@ -295,29 +294,88 @@ function PanelSkills() {
 
   return (
     <Panel bgWord="Skills">
-      <div className="w-full max-w-3xl">
-        <SectionLabel n="02" title="Outils & Langues" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {groups.map((g) => (
-            <div key={g.category}>
-              <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-3">{g.category}</p>
-              <div className="flex flex-wrap gap-2">
-                {g.tools.map(t => <Tag key={t} label={t} />)}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="border-t border-foreground/10 pt-8">
-          <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-4">Langues</p>
-          <div className="flex gap-10">
+      <div className="w-full max-w-5xl">
+        <div className="flex items-end justify-between mb-8">
+          <SectionLabel n="02" title="Outils & Langues" />
+          <div className="flex gap-8 pb-1">
             {langs.map((l) => (
-              <div key={l.lang}>
+              <div key={l.lang} className="text-right">
                 <p className="font-sans text-sm text-foreground/70">{l.lang}</p>
                 <p className="font-mono text-[10px] text-accent tracking-wider mt-0.5">{l.level}</p>
               </div>
             ))}
           </div>
         </div>
+
+        <div className="space-y-8">
+          {[
+            {
+              category: "Data & Analyse",
+              tools: [
+                { name: "Power BI",         level: 90 },
+                { name: "Python",           level: 75 },
+                { name: "Tableau",          level: 70 },
+                { name: "SQL",              level: 60 },
+                { name: "Dataiku",          level: 60 },
+                { name: "Google Analytics", level: 60 },
+              ],
+            },
+            {
+              category: "Automatisation & No-Code",
+              tools: [
+                { name: "Notion",  level: 90 },
+                { name: "Make",    level: 80 },
+                { name: "N8N",     level: 75 },
+                { name: "Airtable",level: 75 },
+              ],
+            },
+            {
+              category: "Gestion de projet",
+              tools: [
+                { name: "Excel",      level: 100 },
+                { name: "GitHub",     level: 85 },
+                { name: "PowerPoint", level: 75 },
+                { name: "Docker",     level: 65 },
+              ],
+            },
+            {
+              category: "En apprentissage",
+              tools: [
+                { name: "JavaScript",      level: 50 },
+                { name: "Machine Learning",level: 50 },
+              ],
+            },
+          ].map((g) => (
+            <div key={g.category}>
+              <p className="font-mono text-[9px] text-foreground/25 tracking-widest uppercase mb-3">{g.category}</p>
+              <div className="flex flex-wrap gap-3">
+                {g.tools.map(({ name, level }) => (
+                  <div
+                    key={name}
+                    className="relative overflow-hidden cursor-default group"
+                    style={{
+                      border: "1px solid rgba(196,30,30,0.35)",
+                      padding: "8px 16px",
+                    }}
+                  >
+                    {/* remplissage de gauche à droite */}
+                    <div
+                      className="absolute inset-0 origin-left"
+                      style={{
+                        width: `${level}%`,
+                        background: "rgba(196,30,30,0.55)",
+                      }}
+                    />
+                    <span className="relative font-mono text-xs tracking-widest uppercase text-foreground/80 group-hover:text-foreground transition-colors duration-200">
+                      {name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </Panel>
   );
@@ -338,7 +396,7 @@ function PanelHobbies() {
   return (
     <Panel bgWord="Ailleurs">
       <div className="w-full max-w-2xl">
-        <SectionLabel n="06" title="Ailleurs" />
+        <SectionLabel n="06" title="Hobbies" />
 
         <div className="flex flex-wrap gap-8 mb-16">
           {hobbies.map((h) => (
@@ -350,13 +408,13 @@ function PanelHobbies() {
         </div>
         <div className="border-t border-foreground/10 pt-10 flex flex-col gap-4">
           <p className="font-mono text-[10px] text-foreground/30 tracking-widest uppercase">Curriculum Vitae</p>
-          <a href="#" className="inline-flex items-center gap-4 group self-start">
+          <a href="/CV-Joffray-DeAlberto.pdf" download className="inline-flex items-center gap-4 group self-start">
             <span className="font-serif text-2xl md:text-3xl text-foreground font-light group-hover:text-accent transition-colors duration-300">
               Télécharger mon CV
             </span>
             <span className="font-mono text-xs text-accent group-hover:translate-x-1 transition-transform duration-300">→</span>
           </a>
-          <p className="font-mono text-[9px] text-foreground/20 tracking-widest">PDF — bientôt disponible</p>
+          <p className="font-mono text-[9px] text-foreground/20 tracking-widest">PDF — 2025</p>
         </div>
       </div>
     </Panel>
