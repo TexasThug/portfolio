@@ -65,12 +65,11 @@ function PanelScreen({ n, title, src, description }: {
       className="relative flex items-center px-12 md:px-24">
       <div className="w-full max-w-5xl">
         <SectionLabel n={n} title={title} />
-        <div className="w-full overflow-hidden rounded-sm" style={{ border: "1px solid rgba(196,30,30,0.2)" }}>
+        <div className="w-full overflow-hidden rounded-sm" style={{ border: "1px solid rgba(196,30,30,0.2)", height: "62vh" }}>
           <img
             src={src}
             alt={title}
-            className="w-full object-cover"
-            style={{ maxHeight: "58vh", objectPosition: "top" }}
+            style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
           />
         </div>
         <p className="font-sans text-xs text-foreground/35 mt-4 max-w-lg leading-relaxed">
