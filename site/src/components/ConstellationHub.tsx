@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SceneMoiCV from "./SceneMoiCV";
 import SceneDataHub from "./SceneDataHub";
+import SceneCasBusinessHub from "./SceneCasBusinessHub";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,7 +93,7 @@ const mainNodes: { id: NodeId; label: string; x: number; y: number; size: number
   { id: "about",     label: "À propos",  x: 15,  y: 12,  size: 1.4 },
   { id: "data",      label: "Data",      x: 35,  y: 50,  size: 1.9 },
   { id: "ia",        label: "IA",        x: 68,  y: 18,  size: 1.9 },
-  { id: "strategie", label: "Cas Business", x: 78,  y: 54,  size: 1.9 },
+  { id: "strategie", label: "Cas Business", x: 82,  y: 54,  size: 1.9 },
 ];
 
 // ── Decorative stars (not clickable)
@@ -402,7 +403,7 @@ export default function ConstellationHub() {
 
                   {/* Label */}
                   <text
-                    x={node.x}
+                    x={node.id === "strategie" ? node.x - 2.5 : node.x}
                     y={node.id === "about"
                       ? node.y - node.size * 2.8 - 2
                       : node.y + node.size * 2.8 + 4}
@@ -436,8 +437,13 @@ export default function ConstellationHub() {
         <SceneDataHub onBack={handleBack} />
       )}
 
-      {/* ── UNIVERSE (IA / Stratégie) ── */}
-      {activeNode && activeNode !== "about" && activeNode !== "data" && (
+      {/* ── CAS BUSINESS HUB ── */}
+      {activeNode === "strategie" && (
+        <SceneCasBusinessHub onBack={handleBack} />
+      )}
+
+      {/* ── UNIVERSE (IA) ── */}
+      {activeNode && activeNode !== "about" && activeNode !== "data" && activeNode !== "strategie" && (
         <div ref={universeRef} className="min-h-screen flex flex-col" style={{ opacity: 0 }}>
 
           <button
