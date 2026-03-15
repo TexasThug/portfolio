@@ -16,7 +16,7 @@ const projects = [
     subtitle: "Career Stats Analysis",
     description: "20 saisons, 1 346 matchs, 5 titres. Un dashboard Power BI complet sur la carrière du Mamba.",
     stack: ["Power BI", "Python", "SQL"],
-    status: "En cours",
+    status: "Terminé",
     year: "2025",
   },
   {
