@@ -414,7 +414,7 @@ function PanelHobbies() {
             </span>
             <span className="font-mono text-xs text-accent group-hover:translate-x-1 transition-transform duration-300">→</span>
           </a>
-          <p className="font-mono text-[9px] text-foreground/20 tracking-widest">PDF — 2025</p>
+          <p className="font-mono text-[9px] text-foreground/20 tracking-widest">PDF — 2026</p>
         </div>
       </div>
     </Panel>
