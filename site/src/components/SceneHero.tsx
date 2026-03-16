@@ -53,19 +53,15 @@ export default function SceneHero() {
       <div className="text-center mb-14 space-y-1">
         <p className="font-serif text-xl md:text-2xl text-foreground/60 italic">
           <span ref={line1Ref} className="block">
-            Du business à la data.
-          </span>
-        </p>
-        <p className="font-serif text-xl md:text-2xl text-foreground/60 italic">
-          <span ref={line2Ref} className="block">
-            Je traduis
+            Relier les points,
           </span>
         </p>
         <p className="font-serif text-2xl md:text-3xl text-foreground italic">
-          <span ref={line3Ref} className="block">
-            l&apos;un dans l&apos;autre.
+          <span ref={line2Ref} className="block">
+            éclairer les décisions.
           </span>
         </p>
+        <span ref={line3Ref} />
       </div>
 
       {/* Name */}
