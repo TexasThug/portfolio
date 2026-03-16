@@ -91,9 +91,8 @@ export default function SceneContact() {
             On se parle ?
           </h2>
           <p className="font-sans text-base text-foreground/50 mt-6 leading-relaxed max-w-md">
-            Ouvert aux opportunités en alternance ou stage — chef de projet
-            Data, Business Analyst. Toujours partant pour une bonne
-            conversation aussi.
+            En recherche d'un CDI — chef de projet Data, Business Analyst.
+            Toujours partant pour une bonne conversation aussi.
           </p>
         </div>
 
