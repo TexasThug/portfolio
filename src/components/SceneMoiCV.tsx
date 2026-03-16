@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props { onBack: () => void }
 
@@ -52,11 +53,37 @@ function SectionLabel({ n, title }: { n: string; title: string }) {
 // PANEL 1 — INTRO
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelIntro() {
+  const { lang } = useLanguage();
+
+  const t = lang === "fr"
+    ? {
+        sectionLabel: "01 — Profil",
+        subtitle: "Business & Data · E-Commerce",
+        educationLabel: "Formation",
+        educationDegree: "MSc Business & Data",
+        educationSchool: "Eugenia School — 2024 / 2026",
+        searchLabel: "Recherche",
+        searchText: "CDI pour septembre 2026",
+        contactLabel: "Contact",
+        scroll: "scroll",
+      }
+    : {
+        sectionLabel: "01 — Profile",
+        subtitle: "Business & Data · E-Commerce",
+        educationLabel: "Education",
+        educationDegree: "MSc Business & Data",
+        educationSchool: "Eugenia School — 2024 / 2026",
+        searchLabel: "Looking for",
+        searchText: "Full-time role from September 2026",
+        contactLabel: "Contact",
+        scroll: "scroll",
+      };
+
   return (
     <Panel bgWord="Moi">
       <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-16">
         <div>
-          <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-6">01 — Profil</p>
+          <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-6">{t.sectionLabel}</p>
           <h2
             className="font-serif font-light text-foreground leading-none"
             style={{ fontSize: "clamp(52px, 8vw, 120px)" }}
@@ -65,22 +92,22 @@ function PanelIntro() {
             <span className="text-accent italic">DeAlberto</span>
           </h2>
           <p className="font-mono text-xs text-foreground/40 tracking-widest uppercase mt-6">
-            Business & Data · E-Commerce
+            {t.subtitle}
           </p>
         </div>
 
         <div className="flex-shrink-0 space-y-6 max-w-xs border-l border-foreground/10 pl-10">
           <div>
-            <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-1">Formation</p>
-            <p className="font-sans text-sm text-foreground/70">MSc Business & Data</p>
-            <p className="font-mono text-[10px] text-foreground/40">Eugenia School — 2024 / 2026</p>
+            <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-1">{t.educationLabel}</p>
+            <p className="font-sans text-sm text-foreground/70">{t.educationDegree}</p>
+            <p className="font-mono text-[10px] text-foreground/40">{t.educationSchool}</p>
           </div>
           <div>
-            <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-1">Recherche</p>
-            <p className="font-sans text-sm text-foreground/70">CDI pour septembre 2026</p>
+            <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-1">{t.searchLabel}</p>
+            <p className="font-sans text-sm text-foreground/70">{t.searchText}</p>
           </div>
           <div>
-            <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-1">Contact</p>
+            <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mb-1">{t.contactLabel}</p>
             <a
               href="mailto:leffejeff@gmail.com"
               className="font-sans text-sm text-foreground/70 hover:text-accent transition-colors block"
@@ -92,7 +119,7 @@ function PanelIntro() {
       </div>
 
       <div className="absolute bottom-10 right-12 font-mono text-[10px] text-foreground/20 tracking-widest uppercase flex items-center gap-3">
-        <span>scroll</span>
+        <span>{t.scroll}</span>
         <span className="w-8 h-px bg-foreground/20" />
         <span>→</span>
       </div>
@@ -104,7 +131,9 @@ function PanelIntro() {
 // PANEL 2 — EXPÉRIENCES
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelExperiences() {
-  const xps = [
+  const { lang } = useLanguage();
+
+  const xpsFr = [
     {
       period: "Sept. 2024 – auj.",
       company: "Edgard & Cooper",
@@ -153,10 +182,62 @@ function PanelExperiences() {
     },
   ];
 
+  const xpsEn = [
+    {
+      period: "Sept. 2024 – present",
+      company: "Edgard & Cooper",
+      role: "E-Commerce Europe Sales Manager Assistant",
+      location: "Paris 02",
+      bullets: [
+        "Amazon Vendor & Seller management (listings, pricing, stock, availability)",
+        "Stock forecast management with demand planning & supply chain",
+        "Built a custom price tracking tool (Python)",
+        "E-commerce process automation (reporting, price alerts)",
+        "Weekly e-tail reporting — insights, risks, opportunities",
+        "Partners: Zooplus, Bol.com, Plein.nl, Medpets",
+        "Daily work in English with the London-based team",
+      ],
+    },
+    {
+      period: "Apr. – Aug. 2024",
+      company: "AMD Blue",
+      role: "Business Developer — Data Services & Consulting",
+      location: "Paris 12",
+      bullets: [
+        "Enterprise, SMB, and ITE prospecting",
+        "BoondManager & LinkedIn Sales Navigator",
+        "Prospecting plans · market research · Growth Hacking",
+      ],
+    },
+    {
+      period: "Sept. 2023 – Mar. 2024",
+      company: "Pluraskills",
+      role: "Business Developer — IT Consulting Firm",
+      location: "Issy-les-Moulineaux",
+      bullets: [
+        "Phone prospecting & appointment management",
+        "Contribution to recruitment",
+      ],
+    },
+    {
+      period: "Aug. 2021 – Aug. 2023",
+      company: "Point P",
+      role: "B2B Sales Advisor",
+      location: "Noisy-le-Sec",
+      bullets: [
+        "Client/supplier negotiations · portfolio management",
+        "Event creation & marketing campaigns",
+      ],
+    },
+  ];
+
+  const xps = lang === "fr" ? xpsFr : xpsEn;
+  const title = lang === "fr" ? "Expériences" : "Experience";
+
   return (
-    <Panel bgWord="Terrain">
+    <Panel bgWord={lang === "fr" ? "Terrain" : "Field"}>
       <div className="w-full max-w-3xl">
-        <SectionLabel n="03" title="Expériences" />
+        <SectionLabel n="03" title={title} />
         <div className="space-y-7 overflow-y-auto" style={{ maxHeight: "70vh" }}>
           {xps.map((x, i) => (
             <div key={i} className="flex gap-8">
@@ -186,7 +267,9 @@ function PanelExperiences() {
 // PANEL 3 — FORMATION
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelFormation() {
-  const schools = [
+  const { lang } = useLanguage();
+
+  const schoolsFr = [
     {
       years: "2024 – 2026",
       school: "Eugenia School",
@@ -213,10 +296,41 @@ function PanelFormation() {
     },
   ];
 
+  const schoolsEn = [
+    {
+      years: "2024 – 2026",
+      school: "Eugenia School",
+      degree: "MSc Business & Data",
+      location: "Paris 10",
+      courses: "Business Analytics · Data Visualisation · CRM · No-code · Analytical Marketing",
+      tools: ["Python", "SQL", "Power BI", "GitHub", "Docker", "JavaScript", "Dataiku", "Google Analytics", "Airtable", "Notion", "Zapier"],
+    },
+    {
+      years: "2023 – 2024",
+      school: "Euridis Business School",
+      degree: "Bachelor in International Business",
+      location: "Paris 9",
+      courses: "Supply Chain · Value Selling · English Business · B2B Marketing · Growth Hacking",
+      tools: [],
+    },
+    {
+      years: "2021 – 2023",
+      school: "Stephenson Formation",
+      degree: "BTS NDRC",
+      location: "Paris 18",
+      courses: "Remote customer relations · Negotiation · Digitalisation · English",
+      tools: [],
+    },
+  ];
+
+  const schools = lang === "fr" ? schoolsFr : schoolsEn;
+  const title = lang === "fr" ? "Formation" : "Education";
+  const bgWord = lang === "fr" ? "École" : "School";
+
   return (
-    <Panel bgWord="École">
+    <Panel bgWord={bgWord}>
       <div className="w-full max-w-3xl">
-        <SectionLabel n="04" title="Formation" />
+        <SectionLabel n="04" title={title} />
         <div className="space-y-10">
           {schools.map((s, i) => (
             <div key={i} className="flex gap-8">
@@ -245,18 +359,29 @@ function PanelFormation() {
 // PANEL 4 — AUSTRALIE
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelAustralie() {
+  const { lang } = useLanguage();
+
+  const t = lang === "fr"
+    ? {
+        sectionLabel: "05 — Australie — 2018 / 2020",
+        heading: "Deux ans au bout du monde.",
+        body: "Pêche au thon en mer, puis supervision d'une équipe en ferme — l'anglais s'est appris en faisant, pas en étudiant. Ce passage a posé les bases d'un rapport direct au terrain, à l'autonomie, et à des équipes internationales. C'est aujourd'hui ma langue de travail au quotidien.",
+      }
+    : {
+        sectionLabel: "05 — Australia — 2018 / 2020",
+        heading: "Two years at the end of the world.",
+        body: "Tuna fishing at sea, then supervising a farm crew — English was learned by doing, not by studying. This period built a direct relationship with fieldwork, autonomy, and international teams. It's now my everyday working language.",
+      };
+
   return (
-    <Panel bgWord="Australie">
+    <Panel bgWord="Australia">
       <div className="w-full max-w-3xl">
-        <SectionLabel n="05" title="Australie — 2018 / 2020" />
+        <SectionLabel n="05" title={t.sectionLabel.replace("05 — ", "")} />
         <p className="font-serif text-2xl md:text-4xl text-foreground font-light leading-snug mb-12 max-w-xl">
-          Deux ans au bout du monde.
+          {t.heading}
         </p>
         <p className="font-sans text-sm text-foreground/50 leading-relaxed max-w-lg">
-          Pêche au thon en mer, puis supervision d'une équipe en ferme — l'anglais s'est appris
-          en faisant, pas en étudiant. Ce passage a posé les bases d'un rapport direct au terrain,
-          à l'autonomie, et à des équipes internationales. C'est aujourd'hui ma langue de travail
-          au quotidien.
+          {t.body}
         </p>
       </div>
     </Panel>
@@ -267,36 +392,107 @@ function PanelAustralie() {
 // PANEL 5 — OUTILS & LANGUES
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelSkills() {
-  const groups = [
+  const { lang } = useLanguage();
+
+  const groupsFr = [
     {
       category: "Data & Analyse",
-      tools: ["Python", "SQL", "Power BI", "Tableau", "Dataiku", "Google Analytics"],
+      tools: [
+        { name: "Power BI",         level: 90 },
+        { name: "Python",           level: 75 },
+        { name: "Tableau",          level: 70 },
+        { name: "SQL",              level: 60 },
+        { name: "Dataiku",          level: 60 },
+        { name: "Google Analytics", level: 60 },
+      ],
     },
     {
       category: "Automatisation & No-Code",
-      tools: ["Make", "N8N", "Zapier", "Airtable", "Notion"],
+      tools: [
+        { name: "Notion",   level: 90 },
+        { name: "Make",     level: 80 },
+        { name: "N8N",      level: 75 },
+        { name: "Airtable", level: 75 },
+      ],
     },
     {
       category: "Gestion de projet",
-      tools: ["Excel", "PowerPoint", "Notion", "GitHub", "Docker"],
+      tools: [
+        { name: "Excel",      level: 100 },
+        { name: "GitHub",     level: 85 },
+        { name: "PowerPoint", level: 75 },
+        { name: "Docker",     level: 65 },
+      ],
     },
     {
       category: "En apprentissage",
-      tools: ["JavaScript", "Machine Learning"],
+      tools: [
+        { name: "JavaScript",      level: 50 },
+        { name: "Machine Learning", level: 50 },
+      ],
     },
   ];
 
-  const langs = [
+  const groupsEn = [
+    {
+      category: "Data & Analysis",
+      tools: [
+        { name: "Power BI",         level: 90 },
+        { name: "Python",           level: 75 },
+        { name: "Tableau",          level: 70 },
+        { name: "SQL",              level: 60 },
+        { name: "Dataiku",          level: 60 },
+        { name: "Google Analytics", level: 60 },
+      ],
+    },
+    {
+      category: "Automation & No-Code",
+      tools: [
+        { name: "Notion",   level: 90 },
+        { name: "Make",     level: 80 },
+        { name: "N8N",      level: 75 },
+        { name: "Airtable", level: 75 },
+      ],
+    },
+    {
+      category: "Project Management",
+      tools: [
+        { name: "Excel",      level: 100 },
+        { name: "GitHub",     level: 85 },
+        { name: "PowerPoint", level: 75 },
+        { name: "Docker",     level: 65 },
+      ],
+    },
+    {
+      category: "Learning",
+      tools: [
+        { name: "JavaScript",      level: 50 },
+        { name: "Machine Learning", level: 50 },
+      ],
+    },
+  ];
+
+  const langsFr = [
     { lang: "Français", level: "Natif" },
     { lang: "Anglais",  level: "Bilingue" },
     { lang: "Japonais", level: "Débutant" },
   ];
 
+  const langsEn = [
+    { lang: "French",   level: "Native" },
+    { lang: "English",  level: "Bilingual" },
+    { lang: "Japanese", level: "Beginner" },
+  ];
+
+  const groups = lang === "fr" ? groupsFr : groupsEn;
+  const langs = lang === "fr" ? langsFr : langsEn;
+  const title = lang === "fr" ? "Outils & Langues" : "Tools & Languages";
+
   return (
     <Panel bgWord="Skills">
       <div className="w-full max-w-5xl">
         <div className="flex items-end justify-between mb-8">
-          <SectionLabel n="02" title="Outils & Langues" />
+          <SectionLabel n="02" title={title} />
           <div className="flex gap-8 pb-1">
             {langs.map((l) => (
               <div key={l.lang} className="text-right">
@@ -308,44 +504,7 @@ function PanelSkills() {
         </div>
 
         <div className="space-y-8">
-          {[
-            {
-              category: "Data & Analyse",
-              tools: [
-                { name: "Power BI",         level: 90 },
-                { name: "Python",           level: 75 },
-                { name: "Tableau",          level: 70 },
-                { name: "SQL",              level: 60 },
-                { name: "Dataiku",          level: 60 },
-                { name: "Google Analytics", level: 60 },
-              ],
-            },
-            {
-              category: "Automatisation & No-Code",
-              tools: [
-                { name: "Notion",  level: 90 },
-                { name: "Make",    level: 80 },
-                { name: "N8N",     level: 75 },
-                { name: "Airtable",level: 75 },
-              ],
-            },
-            {
-              category: "Gestion de projet",
-              tools: [
-                { name: "Excel",      level: 100 },
-                { name: "GitHub",     level: 85 },
-                { name: "PowerPoint", level: 75 },
-                { name: "Docker",     level: 65 },
-              ],
-            },
-            {
-              category: "En apprentissage",
-              tools: [
-                { name: "JavaScript",      level: 50 },
-                { name: "Machine Learning",level: 50 },
-              ],
-            },
-          ].map((g) => (
+          {groups.map((g) => (
             <div key={g.category}>
               <p className="font-mono text-[9px] text-foreground/25 tracking-widest uppercase mb-3">{g.category}</p>
               <div className="flex flex-wrap gap-3">
@@ -358,7 +517,6 @@ function PanelSkills() {
                       padding: "8px 16px",
                     }}
                   >
-                    {/* remplissage de gauche à droite */}
                     <div
                       className="absolute inset-0 origin-left"
                       style={{
@@ -385,7 +543,9 @@ function PanelSkills() {
 // PANEL 6 — HOBBIES + CV
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelHobbies() {
-  const hobbies = [
+  const { lang } = useLanguage();
+
+  const hobbiesFr = [
     { icon: "♟", label: "Échecs", sub: "Élo 1600" },
     { icon: "📖", label: "Lecture" },
     { icon: "🏀", label: "Basketball" },
@@ -393,10 +553,36 @@ function PanelHobbies() {
     { icon: "✏️", label: "Dessin" },
   ] as { icon: string; label: string; sub?: string }[];
 
+  const hobbiesEn = [
+    { icon: "♟", label: "Chess", sub: "Elo 1600" },
+    { icon: "📖", label: "Reading" },
+    { icon: "🏀", label: "Basketball" },
+    { icon: "🎾", label: "Tennis · Padel" },
+    { icon: "✏️", label: "Drawing" },
+  ] as { icon: string; label: string; sub?: string }[];
+
+  const hobbies = lang === "fr" ? hobbiesFr : hobbiesEn;
+
+  const t = lang === "fr"
+    ? {
+        sectionTitle: "Hobbies",
+        cvLabel: "Curriculum Vitae",
+        downloadText: "Télécharger mon CV",
+        pdfNote: "PDF — 2026",
+        bgWord: "Ailleurs",
+      }
+    : {
+        sectionTitle: "Hobbies",
+        cvLabel: "Curriculum Vitae",
+        downloadText: "Download my CV",
+        pdfNote: "PDF — 2026",
+        bgWord: "Elsewhere",
+      };
+
   return (
-    <Panel bgWord="Ailleurs">
+    <Panel bgWord={t.bgWord}>
       <div className="w-full max-w-2xl">
-        <SectionLabel n="06" title="Hobbies" />
+        <SectionLabel n="06" title={t.sectionTitle} />
 
         <div className="flex flex-wrap gap-8 mb-16">
           {hobbies.map((h) => (
@@ -408,14 +594,14 @@ function PanelHobbies() {
           ))}
         </div>
         <div className="border-t border-foreground/10 pt-10 flex flex-col gap-4">
-          <p className="font-mono text-[10px] text-foreground/30 tracking-widest uppercase">Curriculum Vitae</p>
+          <p className="font-mono text-[10px] text-foreground/30 tracking-widest uppercase">{t.cvLabel}</p>
           <a href="/CV-Joffray-DeAlberto.pdf" download className="inline-flex items-center gap-4 group self-start">
             <span className="font-serif text-2xl md:text-3xl text-foreground font-light group-hover:text-accent transition-colors duration-300">
-              Télécharger mon CV
+              {t.downloadText}
             </span>
             <span className="font-mono text-xs text-accent group-hover:translate-x-1 transition-transform duration-300">→</span>
           </a>
-          <p className="font-mono text-[9px] text-foreground/20 tracking-widest">PDF — 2026</p>
+          <p className="font-mono text-[9px] text-foreground/20 tracking-widest">{t.pdfNote}</p>
         </div>
       </div>
     </Panel>
@@ -426,6 +612,11 @@ function PanelHobbies() {
 // MAIN COMPONENT
 // ──────────────────────────────────────────────────────────────────────────────
 export default function SceneMoiCV({ onBack }: Props) {
+  const { lang } = useLanguage();
+
+  const backLabel = lang === "fr" ? "← Constellation" : "← Constellation";
+  const scrollLabel = lang === "fr" ? "scroll →" : "scroll →";
+
   const overlayRef  = useRef<HTMLDivElement>(null);
   const trackRef    = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -498,11 +689,11 @@ export default function SceneMoiCV({ onBack }: Props) {
         onClick={handleClose}
         className="absolute top-8 left-8 md:left-12 z-10 font-mono text-[11px] tracking-widest uppercase text-foreground/40 hover:text-accent transition-colors duration-200"
       >
-        ← Constellation
+        {backLabel}
       </button>
 
       <div className="absolute top-8 right-8 md:right-12 z-10 font-mono text-[10px] text-foreground/20 tracking-widest uppercase">
-        scroll →
+        {scrollLabel}
       </div>
 
       <div

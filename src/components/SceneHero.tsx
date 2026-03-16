@@ -2,8 +2,26 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useLanguage } from "@/context/LanguageContext";
+
+const fr = {
+  line1: "Relier les points,",
+  line2: "éclairer les décisions.",
+  subtitle: "Chef de projet Data · Business Analyst",
+  scroll: "Scroll",
+};
+
+const en = {
+  line1: "Connecting the dots,",
+  line2: "illuminating decisions.",
+  subtitle: "Data Project Manager · Business Analyst",
+  scroll: "Scroll",
+};
 
 export default function SceneHero() {
+  const { lang } = useLanguage();
+  const t = lang === "fr" ? fr : en;
+
   const line1Ref = useRef<HTMLSpanElement>(null);
   const line2Ref = useRef<HTMLSpanElement>(null);
   const line3Ref = useRef<HTMLSpanElement>(null);
@@ -53,12 +71,12 @@ export default function SceneHero() {
       <div className="text-center mb-14 space-y-1">
         <p className="font-serif text-xl md:text-2xl text-foreground/60 italic">
           <span ref={line1Ref} className="block">
-            Relier les points,
+            {t.line1}
           </span>
         </p>
         <p className="font-serif text-2xl md:text-3xl text-foreground italic">
           <span ref={line2Ref} className="block">
-            éclairer les décisions.
+            {t.line2}
           </span>
         </p>
         <span ref={line3Ref} />
@@ -78,7 +96,7 @@ export default function SceneHero() {
         ref={subtitleRef}
         className="font-mono text-xs md:text-sm text-foreground/40 mt-8 tracking-[0.4em] uppercase"
       >
-        Chef de projet Data · Business Analyst
+        {t.subtitle}
       </p>
 
       {/* Red accent line — début du fil rouge */}
@@ -93,7 +111,7 @@ export default function SceneHero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-foreground/25"
       >
         <span className="font-mono text-[10px] tracking-widest uppercase">
-          Scroll
+          {t.scroll}
         </span>
         <div className="w-px h-8 bg-foreground/20 animate-pulse" />
       </div>

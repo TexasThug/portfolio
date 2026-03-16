@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props { onBack: () => void }
 
@@ -18,11 +19,25 @@ function SectionLabel({ n, title }: { n: string; title: string }) {
 // ──────────────────────────────────────────────────────────────────────────────
 
 function PanelIntro() {
+  const { lang } = useLanguage();
+
+  const t = lang === "fr"
+    ? {
+        sectionLabel: "01 — Projet",
+        description: "Analyse complète des statistiques de carrière de Kobe Bryant — 20 saisons, 1 346 matchs, 5 titres NBA. Un dashboard Power BI construit de A à Z, des données brutes aux insights visuels.",
+        download: "↓ Télécharger le .pbix",
+      }
+    : {
+        sectionLabel: "01 — Project",
+        description: "Complete analysis of Kobe Bryant's career statistics — 20 seasons, 1,346 games, 5 NBA titles. A Power BI dashboard built end to end, from raw data to visual insights.",
+        download: "↓ Download the .pbix",
+      };
+
   return (
     <div style={{ width: "100vw", height: "100vh", flexShrink: 0 }}
       className="relative flex items-center px-12 md:px-24">
       <div className="max-w-xl">
-        <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-6">01 — Projet</p>
+        <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-6">{t.sectionLabel}</p>
         <h2
           className="font-serif font-light text-foreground leading-none mb-8"
           style={{ fontSize: "clamp(48px, 7vw, 100px)" }}
@@ -31,16 +46,14 @@ function PanelIntro() {
           <span className="text-accent italic">Career Stats</span>
         </h2>
         <p className="font-sans text-sm text-foreground/50 leading-relaxed max-w-md mb-10">
-          Analyse complète des statistiques de carrière de Kobe Bryant — 20 saisons,
-          1 346 matchs, 5 titres NBA. Un dashboard Power BI construit de A à Z,
-          des données brutes aux insights visuels.
+          {t.description}
         </p>
         <div className="flex gap-3 flex-wrap mb-10">
-          {["Power BI", "Python", "SQL", "NBA API"].map(t => (
-            <span key={t}
+          {["Power BI", "Python", "SQL", "NBA API"].map(tool => (
+            <span key={tool}
               className="font-mono text-[10px] tracking-widest uppercase text-foreground/50 px-3 py-1.5"
               style={{ border: "1px solid rgba(196,30,30,0.3)" }}>
-              {t}
+              {tool}
             </span>
           ))}
         </div>
@@ -50,7 +63,7 @@ function PanelIntro() {
           className="inline-flex items-center gap-3 font-mono text-[10px] tracking-widest uppercase text-accent hover:text-foreground transition-colors duration-200"
           style={{ border: "1px solid rgba(196,30,30,0.5)", padding: "10px 20px" }}
         >
-          ↓ Télécharger le .pbix
+          {t.download}
         </a>
       </div>
     </div>
@@ -81,18 +94,31 @@ function PanelScreen({ n, title, src, description }: {
 }
 
 function PanelFinal() {
-  const stats = [
+  const { lang } = useLanguage();
+
+  const statsFr = [
     { value: "33 643", label: "Points en carrière" },
     { value: "20",     label: "Saisons NBA" },
     { value: "5×",     label: "Champion NBA" },
     { value: "81",     label: "Points en un match" },
   ];
 
+  const statsEn = [
+    { value: "33,643", label: "Career points" },
+    { value: "20",     label: "NBA seasons" },
+    { value: "5×",     label: "NBA Champion" },
+    { value: "81",     label: "Points in one game" },
+  ];
+
+  const stats = lang === "fr" ? statsFr : statsEn;
+  const title = lang === "fr" ? "Chiffres clés" : "Key figures";
+  const download = lang === "fr" ? "↓ Télécharger le .pbix" : "↓ Download the .pbix";
+
   return (
     <div style={{ width: "100vw", height: "100vh", flexShrink: 0 }}
       className="relative flex items-center px-12 md:px-24">
       <div className="w-full max-w-3xl">
-        <SectionLabel n="07" title="Chiffres clés" />
+        <SectionLabel n="07" title={title} />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           {stats.map(s => (
             <div key={s.label}>
@@ -113,7 +139,7 @@ function PanelFinal() {
             className="font-mono text-[10px] tracking-widest uppercase text-accent hover:text-foreground transition-colors duration-200"
             style={{ border: "1px solid rgba(196,30,30,0.4)", padding: "8px 16px" }}
           >
-            ↓ Télécharger le .pbix
+            {download}
           </a>
         </div>
       </div>
@@ -125,6 +151,34 @@ function PanelFinal() {
 // MAIN COMPONENT
 // ──────────────────────────────────────────────────────────────────────────────
 export default function SceneDataProject({ onBack }: Props) {
+  const { lang } = useLanguage();
+
+  const t = lang === "fr"
+    ? {
+        back: "← Constellation",
+        scroll: "scroll →",
+        screens: [
+          { n: "02", title: "Kobe",          src: "/kobe-01-intro.png",      desc: "Vue d'ensemble du rapport — navigation entre les chapitres de la carrière du Mamba." },
+          { n: "03", title: "The Ascension", src: "/kobe-02-ascension.png",  desc: "Les premières saisons, l'émergence d'un leader. La progression statistique qui annonce une carrière légendaire." },
+          { n: "04", title: "The Night of 81",src: "/kobe-03-night81.png",   desc: "22 janvier 2006. 81 points contre Toronto. Deuxième meilleure performance individuelle de l'histoire NBA." },
+          { n: "05", title: "The Scorer",    src: "/kobe-04-scorer.png",     desc: "Analyse du scoring : répartition par zone, pourcentages aux tirs, évolution du volume offensif saison par saison." },
+          { n: "06", title: "Playoffs",      src: "/kobe-05-playoffs.png",   desc: "Les performances en playoffs vs saison régulière. Kobe élève son niveau quand les enjeux sont maximaux." },
+          { n: "07", title: "The Legacy",    src: "/kobe-06-legacy.png",     desc: "20 saisons, 33 643 points, 5 bagues. La trace indélébile laissée par le Black Mamba dans l'histoire du basket." },
+        ],
+      }
+    : {
+        back: "← Constellation",
+        scroll: "scroll →",
+        screens: [
+          { n: "02", title: "Kobe",          src: "/kobe-01-intro.png",      desc: "Report overview — navigation through the chapters of the Mamba's career." },
+          { n: "03", title: "The Ascension", src: "/kobe-02-ascension.png",  desc: "The early seasons, the emergence of a leader. Statistical progression announcing a legendary career." },
+          { n: "04", title: "The Night of 81",src: "/kobe-03-night81.png",   desc: "January 22, 2006. 81 points against Toronto. Second best individual performance in NBA history." },
+          { n: "05", title: "The Scorer",    src: "/kobe-04-scorer.png",     desc: "Scoring analysis: zone distribution, shot percentages, offensive volume evolution season by season." },
+          { n: "06", title: "Playoffs",      src: "/kobe-05-playoffs.png",   desc: "Playoff vs regular season performance. Kobe raised his level when the stakes were at their highest." },
+          { n: "07", title: "The Legacy",    src: "/kobe-06-legacy.png",     desc: "20 seasons, 33,643 points, 5 rings. The indelible mark left by the Black Mamba in basketball history." },
+        ],
+      };
+
   const overlayRef  = useRef<HTMLDivElement>(null);
   const trackRef    = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -228,46 +282,19 @@ export default function SceneDataProject({ onBack }: Props) {
         onClick={handleClose}
         className="absolute top-8 left-8 md:left-12 z-10 font-mono text-[11px] tracking-widest uppercase text-foreground/40 hover:text-accent transition-colors duration-200"
       >
-        ← Constellation
+        {t.back}
       </button>
 
       <div className="absolute top-8 right-8 md:right-12 z-10 font-mono text-[10px] text-foreground/20 tracking-widest uppercase">
-        scroll →
+        {t.scroll}
       </div>
 
       {/* ── Panels ── */}
       <div ref={trackRef} style={{ display: "flex", height: "100%", willChange: "transform" }}>
         <PanelIntro />
-        <PanelScreen
-          n="02" title="Kobe"
-          src="/kobe-01-intro.png"
-          description="Vue d'ensemble du rapport — navigation entre les chapitres de la carrière du Mamba."
-        />
-        <PanelScreen
-          n="03" title="The Ascension"
-          src="/kobe-02-ascension.png"
-          description="Les premières saisons, l'émergence d'un leader. La progression statistique qui annonce une carrière légendaire."
-        />
-        <PanelScreen
-          n="04" title="The Night of 81"
-          src="/kobe-03-night81.png"
-          description="22 janvier 2006. 81 points contre Toronto. Deuxième meilleure performance individuelle de l'histoire NBA."
-        />
-        <PanelScreen
-          n="05" title="The Scorer"
-          src="/kobe-04-scorer.png"
-          description="Analyse du scoring : répartition par zone, pourcentages aux tirs, évolution du volume offensif saison par saison."
-        />
-        <PanelScreen
-          n="06" title="Playoffs"
-          src="/kobe-05-playoffs.png"
-          description="Les performances en playoffs vs saison régulière. Kobe élève son niveau quand les enjeux sont maximaux."
-        />
-        <PanelScreen
-          n="07" title="The Legacy"
-          src="/kobe-06-legacy.png"
-          description="20 saisons, 33 643 points, 5 bagues. La trace indélébile laissée par le Black Mamba dans l'histoire du basket."
-        />
+        {t.screens.map((s) => (
+          <PanelScreen key={s.n} n={s.n} title={s.title} src={s.src} description={s.desc} />
+        ))}
         <PanelFinal />
       </div>
 

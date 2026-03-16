@@ -5,10 +5,11 @@ import gsap from "gsap";
 import { useRef } from "react";
 import SceneDataProject from "./SceneDataProject";
 import SceneNetflixProject from "./SceneNetflixProject";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props { onBack: () => void }
 
-const projects = [
+const projectsFr = [
   {
     id: "kobe",
     number: "01",
@@ -31,9 +32,39 @@ const projects = [
   },
 ];
 
+const projectsEn = [
+  {
+    id: "kobe",
+    number: "01",
+    title: "Kobe Bryant",
+    subtitle: "Career Stats Analysis",
+    description: "20 seasons, 1,346 games, 5 titles. A complete Power BI dashboard on the Mamba's career.",
+    stack: ["Power BI", "Python", "SQL"],
+    status: "Completed",
+    year: "2025",
+  },
+  {
+    id: "netflix",
+    number: "02",
+    title: "Netflix Titles",
+    subtitle: "Exploratory Data Analysis",
+    description: "8,807 titles analyzed — producing countries, release trends, movies vs series. Python / Pandas / Seaborn.",
+    stack: ["Python", "Pandas", "Seaborn"],
+    status: "Completed",
+    year: "2025",
+  },
+];
+
 export default function SceneDataHub({ onBack }: Props) {
+  const { lang } = useLanguage();
   const overlayRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState<string | null>(null);
+
+  const projects = lang === "fr" ? projectsFr : projectsEn;
+
+  const t = lang === "fr"
+    ? { back: "← Constellation", heading: "Projets", next: "Prochain projet..." }
+    : { back: "← Constellation", heading: "Projects", next: "Next project..." };
 
   const handleProjectClick = (id: string) => {
     setActiveProject(id);
@@ -62,7 +93,7 @@ export default function SceneDataHub({ onBack }: Props) {
         onClick={handleClose}
         className="absolute top-8 left-8 md:left-12 z-10 font-mono text-[11px] tracking-widest uppercase text-foreground/40 hover:text-accent transition-colors duration-200"
       >
-        ← Constellation
+        {t.back}
       </button>
 
       <div className="w-full h-full flex flex-col items-center justify-center px-12 md:px-24">
@@ -74,7 +105,7 @@ export default function SceneDataHub({ onBack }: Props) {
             className="font-serif font-light text-foreground leading-none"
             style={{ fontSize: "clamp(48px, 7vw, 96px)" }}
           >
-            Projets
+            {t.heading}
           </h2>
         </div>
 
@@ -135,7 +166,7 @@ export default function SceneDataHub({ onBack }: Props) {
           {/* Slot futur projet */}
           <div className="flex items-center gap-8 py-6 px-6 opacity-25">
             <span className="font-mono text-[10px] text-foreground/20 tracking-widest w-8 flex-shrink-0">03</span>
-            <p className="font-serif text-2xl text-foreground/20 font-light italic">Prochain projet...</p>
+            <p className="font-serif text-2xl text-foreground/20 font-light italic">{t.next}</p>
           </div>
         </div>
       </div>

@@ -3,25 +3,44 @@
 import { useState, useRef } from "react";
 import gsap from "gsap";
 import ScenePayfitProject from "./ScenePayfitProject";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props { onBack: () => void }
 
-const cases = [
-  {
-    id: "payfit",
-    number: "01",
-    title: "PayFit Hackathon",
-    subtitle: "Stratégie SEO + Outil d'acquisition",
-    description: "Calculette salaire brut/net complète — taux URSSAF 2025, fiche de paie décodée, simulations PPV/PAS. Conçue pour générer du trafic organique et convertir.",
-    stack: ["React", "TypeScript", "Lovable"],
-    status: "Terminé",
-    year: "2025",
-  },
-];
-
 export default function SceneCasBusinessHub({ onBack }: Props) {
+  const { lang } = useLanguage();
   const overlayRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
+
+  const t = lang === "fr"
+    ? {
+        back: "← Constellation",
+        category: "Cas Business",
+        heading: "Études de cas",
+        next: "Prochain cas...",
+        cases: [{
+          id: "payfit", number: "01",
+          title: "PayFit Hackathon",
+          subtitle: "Stratégie SEO + Outil d'acquisition",
+          description: "Calculette salaire brut/net complète — taux URSSAF 2025, fiche de paie décodée, simulations PPV/PAS. Conçue pour générer du trafic organique et convertir.",
+          stack: ["React", "TypeScript", "Lovable"],
+          status: "Terminé", year: "2025",
+        }],
+      }
+    : {
+        back: "← Constellation",
+        category: "Business Cases",
+        heading: "Case Studies",
+        next: "Next case...",
+        cases: [{
+          id: "payfit", number: "01",
+          title: "PayFit Hackathon",
+          subtitle: "SEO Strategy + Acquisition Tool",
+          description: "Complete gross/net salary calculator — 2025 URSSAF rates, decoded payslip, PPV/withholding simulations. Designed to generate organic traffic and convert.",
+          stack: ["React", "TypeScript", "Lovable"],
+          status: "Completed", year: "2025",
+        }],
+      };
 
   const handleClose = () => {
     gsap.to(overlayRef.current, {
@@ -37,20 +56,20 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
 
       <button onClick={handleClose}
         className="absolute top-8 left-8 md:left-12 z-10 font-mono text-[11px] tracking-widest uppercase text-foreground/40 hover:text-accent transition-colors duration-200">
-        ← Constellation
+        {t.back}
       </button>
 
       <div className="w-full h-full flex flex-col items-center justify-center px-12 md:px-24">
         <div className="w-full max-w-4xl mb-16">
-          <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-4">Cas Business</p>
+          <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-4">{t.category}</p>
           <h2 className="font-serif font-light text-foreground leading-none"
             style={{ fontSize: "clamp(48px, 7vw, 96px)" }}>
-            Études de cas
+            {t.heading}
           </h2>
         </div>
 
         <div className="w-full max-w-4xl space-y-px">
-          {cases.map((c) => (
+          {t.cases.map((c) => (
             <button key={c.id} onClick={() => setActive(c.id)} className="w-full text-left group">
               <div className="flex items-center gap-8 py-6 px-6 transition-all duration-300 border-l-2 border-transparent group-hover:border-accent"
                 style={{ background: "rgba(240,235,226,0)" }}
@@ -66,9 +85,9 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
                 </div>
                 <div className="flex-shrink-0 text-right space-y-2 hidden md:block">
                   <div className="flex gap-2 justify-end">
-                    {c.stack.map(t => (
-                      <span key={t} className="font-mono text-[9px] tracking-widest uppercase text-foreground/30 px-2 py-1"
-                        style={{ border: "1px solid rgba(240,235,226,0.1)" }}>{t}</span>
+                    {c.stack.map(s => (
+                      <span key={s} className="font-mono text-[9px] tracking-widest uppercase text-foreground/30 px-2 py-1"
+                        style={{ border: "1px solid rgba(240,235,226,0.1)" }}>{s}</span>
                     ))}
                   </div>
                   <p className="font-mono text-[9px] text-accent tracking-widest uppercase">{c.status} · {c.year}</p>
@@ -81,7 +100,7 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
 
           <div className="flex items-center gap-8 py-6 px-6 opacity-25">
             <span className="font-mono text-[10px] text-foreground/20 tracking-widest w-8 flex-shrink-0">02</span>
-            <p className="font-serif text-2xl text-foreground/20 font-light italic">Prochain cas...</p>
+            <p className="font-serif text-2xl text-foreground/20 font-light italic">{t.next}</p>
           </div>
         </div>
       </div>

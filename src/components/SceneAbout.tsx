@@ -3,17 +3,39 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const domains = [
-  { label: "Data", x: "50%", y: "10%" },
-  { label: "IA", x: "80%", y: "30%" },
-  { label: "Stratégie", x: "85%", y: "65%" },
-  { label: "Visualisation", x: "50%", y: "85%" },
-  { label: "Créativité", x: "15%", y: "65%" },
-  { label: "Business", x: "10%", y: "30%" },
-];
+const fr = {
+  sectionLabel: "01 — À propos",
+  heading: "Ingénieur d'affaires reconverti vers la Data.",
+  bio1: "Je ne suis pas expert dans un seul domaine — je suis celui qui fait tenir les pièces ensemble. Analyser, comprendre, connecter : c'est ce que je fais naturellement, que ce soit sur un échiquier, dans un roman de Tolstoï ou dans un dashboard Power BI.",
+  bio2: "Mon parcours mêle business, data et créativité. Pas malgré ça — grâce à ça.",
+  domains: [
+    { label: "Data", x: "50%", y: "10%" },
+    { label: "IA", x: "80%", y: "30%" },
+    { label: "Stratégie", x: "85%", y: "65%" },
+    { label: "Visualisation", x: "50%", y: "85%" },
+    { label: "Créativité", x: "15%", y: "65%" },
+    { label: "Business", x: "10%", y: "30%" },
+  ],
+};
+
+const en = {
+  sectionLabel: "01 — About",
+  heading: "Business engineer turned Data professional.",
+  bio1: "I'm not an expert in one single field — I'm the one who makes the pieces hold together. Analyzing, understanding, connecting: that's what I do naturally, whether on a chessboard, in a Tolstoy novel, or in a Power BI dashboard.",
+  bio2: "My background blends business, data, and creativity. Not in spite of that — because of it.",
+  domains: [
+    { label: "Data", x: "50%", y: "10%" },
+    { label: "AI", x: "80%", y: "30%" },
+    { label: "Strategy", x: "85%", y: "65%" },
+    { label: "Dataviz", x: "50%", y: "85%" },
+    { label: "Creativity", x: "15%", y: "65%" },
+    { label: "Business", x: "10%", y: "30%" },
+  ],
+};
 
 // Simple edges between adjacent nodes
 const edges = [
@@ -22,6 +44,9 @@ const edges = [
 ];
 
 export default function SceneAbout() {
+  const { lang } = useLanguage();
+  const t = lang === "fr" ? fr : en;
+
   const sectionRef = useRef<HTMLElement>(null);
   const bioRef = useRef<HTMLDivElement>(null);
   const tagsRef = useRef<HTMLDivElement>(null);
@@ -99,23 +124,19 @@ export default function SceneAbout() {
       {/* Bio */}
       <div ref={bioRef} className="max-w-md space-y-6">
         <p className="font-mono text-xs text-accent tracking-[0.3em] uppercase">
-          01 — À propos
+          {t.sectionLabel}
         </p>
 
         <p className="font-serif text-3xl md:text-4xl text-foreground font-light leading-snug">
-          Ingénieur d&apos;affaires reconverti vers la Data.
+          {t.heading}
         </p>
 
         <p className="font-sans text-base text-foreground/60 leading-relaxed">
-          Je ne suis pas expert dans un seul domaine — je suis celui qui fait
-          tenir les pièces ensemble. Analyser, comprendre, connecter : c&apos;est
-          ce que je fais naturellement, que ce soit sur un échiquier, dans un
-          roman de Tolstoï ou dans un dashboard Power BI.
+          {t.bio1}
         </p>
 
         <p className="font-sans text-base text-foreground/60 leading-relaxed">
-          Mon parcours mêle business, data et créativité. Pas malgré ça —
-          grâce à ça.
+          {t.bio2}
         </p>
 
         {/* School tags */}
@@ -142,8 +163,8 @@ export default function SceneAbout() {
         >
           {/* Edges */}
           {edges.map(([a, b], i) => {
-            const nodeA = domains[a];
-            const nodeB = domains[b];
+            const nodeA = t.domains[a];
+            const nodeB = t.domains[b];
             return (
               <line
                 key={i}
@@ -159,7 +180,7 @@ export default function SceneAbout() {
           })}
 
           {/* Nodes */}
-          {domains.map((d, i) => (
+          {t.domains.map((d, i) => (
             <g key={i} className="node">
               <circle
                 cx={parseFloat(d.x)}
