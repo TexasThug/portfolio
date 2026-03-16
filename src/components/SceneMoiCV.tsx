@@ -386,12 +386,12 @@ function PanelSkills() {
 // ──────────────────────────────────────────────────────────────────────────────
 function PanelHobbies() {
   const hobbies = [
-    { icon: "♟", label: "Échecs" },
+    { icon: "♟", label: "Échecs", sub: "Élo 1600" },
     { icon: "📖", label: "Lecture" },
     { icon: "🏀", label: "Basketball" },
     { icon: "🎾", label: "Tennis · Padel" },
     { icon: "✏️", label: "Dessin" },
-  ];
+  ] as { icon: string; label: string; sub?: string }[];
 
   return (
     <Panel bgWord="Ailleurs">
@@ -403,6 +403,7 @@ function PanelHobbies() {
             <div key={h.label} className="flex flex-col items-center gap-2">
               <span className="text-3xl">{h.icon}</span>
               <span className="font-mono text-[10px] text-foreground/40 tracking-widest uppercase">{h.label}</span>
+              {h.sub && <span className="font-mono text-[9px] text-accent/60 tracking-widest">{h.sub}</span>}
             </div>
           ))}
         </div>
