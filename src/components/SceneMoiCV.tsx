@@ -403,7 +403,7 @@ function PanelHobbies() {
             <div key={h.label} className="flex flex-col items-center gap-2">
               <span className="text-3xl">{h.icon}</span>
               <span className="font-mono text-[10px] text-foreground/40 tracking-widest uppercase">{h.label}</span>
-              {h.sub && <span className="font-mono text-[9px] text-accent/60 tracking-widest">{h.sub}</span>}
+              {h.sub && <span className="font-mono text-[11px] text-accent/80 tracking-widest">{h.sub}</span>}
             </div>
           ))}
         </div>
