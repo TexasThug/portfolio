@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import LangToggle from "@/components/LangToggle";
 import CustomCursor from "@/components/CustomCursor";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -37,6 +38,7 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <CustomCursor />
+          <FloatingCTA />
           <LangToggle />
           {children}
         </LanguageProvider>
