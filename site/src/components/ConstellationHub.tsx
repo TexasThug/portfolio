@@ -258,32 +258,36 @@ export default function ConstellationHub() {
     ? { explore: "Explore l'univers", click: "Cliquer pour explorer", back: "← Constellation", prev: "← prev", next: "next →" }
     : { explore: "Explore the universe", click: "Click to explore",   back: "← Constellation", prev: "← prev", next: "next →" };
 
-  // Illumine les traits connectés au nœud survolé
+  // Rouge glissant depuis le nœud hover — les traits restent allumés
   useEffect(() => {
-    secondaryEdgeRefs.current.forEach(el => {
-      if (el) gsap.to(el, { opacity: 0.18, duration: 0.35 });
-    });
-    redEdgeRefs.current.forEach(el => {
-      if (el) gsap.to(el, { opacity: 0.80, strokeWidth: 0.18, duration: 0.35 });
-    });
-
     if (!hoveredNode) return;
     const node = staticNodes.find(n => n.id === hoveredNode);
     if (!node) return;
 
     secondaryEdges.forEach((edge, i) => {
-      const connected = (edge[0] === node.x && edge[1] === node.y) ||
-                        (edge[2] === node.x && edge[3] === node.y);
-      if (connected && secondaryEdgeRefs.current[i]) {
-        gsap.to(secondaryEdgeRefs.current[i], { opacity: 0.7, duration: 0.25 });
-      }
+      const fromNode = edge[0] === node.x && edge[1] === node.y;
+      const toNode   = edge[2] === node.x && edge[3] === node.y;
+      if (!fromNode && !toNode) return;
+      const el = secondaryEdgeRefs.current[i];
+      if (!el) return;
+
+      const len = Math.sqrt((edge[2]-edge[0])**2 + (edge[3]-edge[1])**2);
+      const startOffset = fromNode ? len : -len;
+
+      gsap.killTweensOf(el);
+      gsap.set(el, { attr: { stroke: "#c41e1e", strokeDasharray: len, strokeDashoffset: startOffset }, opacity: 0.85 });
+      gsap.to(el, { attr: { strokeDashoffset: 0 }, duration: 0.5, ease: "power2.out" });
     });
+
+    // Traits rouges principaux → légère intensification
     redEdges.forEach((edge, i) => {
       const connected = (edge[0] === node.x && edge[1] === node.y) ||
                         (edge[2] === node.x && edge[3] === node.y);
-      if (connected && redEdgeRefs.current[i]) {
-        gsap.to(redEdgeRefs.current[i], { opacity: 1, strokeWidth: 0.30, duration: 0.25 });
-      }
+      if (!connected) return;
+      const el = redEdgeRefs.current[i];
+      if (!el) return;
+      gsap.killTweensOf(el);
+      gsap.to(el, { attr: { strokeWidth: 0.30 }, opacity: 1, duration: 0.3 });
     });
   }, [hoveredNode]);
 
