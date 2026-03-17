@@ -12,6 +12,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 type NodeId = "data" | "ia" | "strategie" | "about";
 
+// ── Ripple wave on node click
+function Ripple({ x, y, onDone }: { x: number; y: number; onDone: () => void }) {
+  const r1 = useRef<SVGCircleElement>(null);
+  const r2 = useRef<SVGCircleElement>(null);
+  useEffect(() => {
+    const tl = gsap.timeline({ onComplete: onDone });
+    tl.fromTo(r1.current, { attr: { r: 1.5 }, opacity: 0.9 },
+      { attr: { r: 14 }, opacity: 0, duration: 1.0, ease: "power2.out" }, 0)
+      .fromTo(r2.current, { attr: { r: 1.5 }, opacity: 0.5 },
+      { attr: { r: 22 }, opacity: 0, duration: 1.4, ease: "power2.out" }, 0.1);
+  }, [onDone]);
+  return (
+    <g>
+      <circle ref={r1} cx={x} cy={y} r={1.5} fill="none" stroke="#c41e1e" strokeWidth="0.18" />
+      <circle ref={r2} cx={x} cy={y} r={1.5} fill="none" stroke="#f0ebe2" strokeWidth="0.08" />
+    </g>
+  );
+}
+
 // ── Small starburst — for deco stars only
 const Star = ({ x, y, size, opacity = 1 }: { x: number; y: number; size: number; opacity?: number }) => {
   const s2 = size * 0.65;
@@ -212,16 +231,19 @@ const universesEn = {
 
 export default function ConstellationHub() {
   const { lang } = useLanguage();
-  const sectionRef  = useRef<HTMLElement>(null);
-  const svgRef      = useRef<SVGSVGElement>(null);
-  const overlayRef  = useRef<HTMLDivElement>(null);
-  const universeRef = useRef<HTMLDivElement>(null);
-  const constellRef = useRef<HTMLDivElement>(null);
+  const sectionRef        = useRef<HTMLElement>(null);
+  const svgRef            = useRef<SVGSVGElement>(null);
+  const overlayRef        = useRef<HTMLDivElement>(null);
+  const universeRef       = useRef<HTMLDivElement>(null);
+  const constellRef       = useRef<HTMLDivElement>(null);
+  const secondaryEdgeRefs = useRef<(SVGLineElement | null)[]>([]);
+  const redEdgeRefs       = useRef<(SVGLineElement | null)[]>([]);
 
   const [activeNode,      setActiveNode]      = useState<NodeId | null>(null);
   const [projectIndex,    setProjectIndex]    = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [hoveredNode,     setHoveredNode]     = useState<NodeId | null>(null);
+  const [ripple,          setRipple]          = useState<{ x: number; y: number; key: number } | null>(null);
 
   const universes = lang === "fr" ? universesFr : universesEn;
 
@@ -235,6 +257,35 @@ export default function ConstellationHub() {
   const ui = lang === "fr"
     ? { explore: "Explore l'univers", click: "Cliquer pour explorer", back: "← Constellation", prev: "← prev", next: "next →" }
     : { explore: "Explore the universe", click: "Click to explore",   back: "← Constellation", prev: "← prev", next: "next →" };
+
+  // Illumine les traits connectés au nœud survolé
+  useEffect(() => {
+    secondaryEdgeRefs.current.forEach(el => {
+      if (el) gsap.to(el, { opacity: 0.18, duration: 0.35 });
+    });
+    redEdgeRefs.current.forEach(el => {
+      if (el) gsap.to(el, { opacity: 0.80, strokeWidth: 0.18, duration: 0.35 });
+    });
+
+    if (!hoveredNode) return;
+    const node = staticNodes.find(n => n.id === hoveredNode);
+    if (!node) return;
+
+    secondaryEdges.forEach((edge, i) => {
+      const connected = (edge[0] === node.x && edge[1] === node.y) ||
+                        (edge[2] === node.x && edge[3] === node.y);
+      if (connected && secondaryEdgeRefs.current[i]) {
+        gsap.to(secondaryEdgeRefs.current[i], { opacity: 0.7, duration: 0.25 });
+      }
+    });
+    redEdges.forEach((edge, i) => {
+      const connected = (edge[0] === node.x && edge[1] === node.y) ||
+                        (edge[2] === node.x && edge[3] === node.y);
+      if (connected && redEdgeRefs.current[i]) {
+        gsap.to(redEdgeRefs.current[i], { opacity: 1, strokeWidth: 0.30, duration: 0.25 });
+      }
+    });
+  }, [hoveredNode]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -257,6 +308,9 @@ export default function ConstellationHub() {
 
       const node = mainNodes.find((n) => n.id === nodeId);
       if (!node) return;
+
+      // Déclenche l'onde depuis le nœud
+      setRipple({ x: node.x, y: node.y, key: Date.now() });
 
       const rect   = svgEl.getBoundingClientRect();
       const scaleX = rect.width  / 100;
@@ -375,11 +429,16 @@ export default function ConstellationHub() {
               <circle key={`dot-${i}`} cx={d.x} cy={d.y} r={d.r} fill="#f0ebe2" opacity={d.op} />
             ))}
             {secondaryEdges.map(([x1, y1, x2, y2], i) => (
-              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#f0ebe2" strokeWidth="0.06" opacity={0.18} />
+              <line key={i} ref={el => { secondaryEdgeRefs.current[i] = el; }}
+                x1={x1} y1={y1} x2={x2} y2={y2} stroke="#f0ebe2" strokeWidth="0.06" opacity={0.18} />
             ))}
             {redEdges.map(([x1, y1, x2, y2], i) => (
-              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#c41e1e" strokeWidth="0.18" opacity={0.80} />
+              <line key={i} ref={el => { redEdgeRefs.current[i] = el; }}
+                x1={x1} y1={y1} x2={x2} y2={y2} stroke="#c41e1e" strokeWidth="0.18" opacity={0.80} />
             ))}
+            {ripple && (
+              <Ripple key={ripple.key} x={ripple.x} y={ripple.y} onDone={() => setRipple(null)} />
+            )}
             {decoStars.map((s, i) => (
               <Star key={i} x={s.x} y={s.y} size={s.size} opacity={0.35} />
             ))}
