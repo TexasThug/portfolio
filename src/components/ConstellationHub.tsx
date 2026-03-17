@@ -12,52 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 type NodeId = "data" | "ia" | "strategie" | "about";
 
-// ── Scramble label — décode le texte lettre par lettre au hover
-const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#·—";
-
-function ScrambleLabel({
-  text, x, y, fontSize, opacity, triggered, textAnchor = "middle",
-}: {
-  text: string; x: number; y: number; fontSize: string;
-  opacity: number; triggered: boolean; textAnchor?: string;
-}) {
-  const [display, setDisplay] = useState(text);
-
-  useEffect(() => {
-    if (!triggered) { setDisplay(text); return; }
-
-    let frame = 0;
-    const total = text.length * 4;
-    const id = setInterval(() => {
-      setDisplay(
-        text.split("").map((char, i) => {
-          if (char === " ") return " ";
-          if (i <= frame / 4) return text[i];
-          return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-        }).join("")
-      );
-      frame++;
-      if (frame > total) clearInterval(id);
-    }, 28);
-
-    return () => clearInterval(id);
-  }, [triggered, text]);
-
-  return (
-    <text
-      x={x} y={y}
-      textAnchor={textAnchor}
-      fontSize={fontSize}
-      fill="#f0ebe2"
-      fontFamily="var(--font-jetbrains)"
-      opacity={triggered ? 1 : opacity}
-      style={{ transition: "opacity 0.25s" }}
-    >
-      {display}
-    </text>
-  );
-}
-
 // ── Ripple wave on node click
 function Ripple({ x, y, onDone }: { x: number; y: number; onDone: () => void }) {
   const r1 = useRef<SVGCircleElement>(null);
@@ -498,14 +452,18 @@ export default function ConstellationHub() {
                   onClick={() => handleNodeClick(node.id)}>
                   <circle cx={node.x} cy={node.y} r={8} fill="transparent" />
                   <GalaxyNode x={node.x} y={node.y} size={node.size} id={node.id} hovered={isHov} />
-                  <ScrambleLabel
-                    text={node.label.toUpperCase()}
+                  <text
                     x={node.id === "strategie" ? node.x - 2.5 : node.x}
                     y={node.id === "about" ? node.y - node.size * 2.8 - 2 : node.y + node.size * 2.8 + 4}
+                    textAnchor="middle"
                     fontSize={node.id === "about" ? "3.0" : "3.5"}
-                    opacity={0.5}
-                    triggered={isHov}
-                  />
+                    fill="#f0ebe2"
+                    fontFamily="var(--font-jetbrains)"
+                    opacity={isHov ? 1 : 0.5}
+                    style={{ transition: "opacity 0.25s" }}
+                  >
+                    {node.label}
+                  </text>
                 </g>
               );
             })}
