@@ -6,6 +6,7 @@ import LangToggle from "@/components/LangToggle";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingCTA from "@/components/FloatingCTA";
 import IntroScreen from "@/components/IntroScreen";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -39,6 +40,7 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <IntroScreen />
+          <ScrollProgress />
           <CustomCursor />
           <FloatingCTA />
           <LangToggle />
