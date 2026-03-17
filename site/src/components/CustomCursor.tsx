@@ -6,28 +6,41 @@ import gsap from "gsap";
 export default function CustomCursor() {
   const dotRef  = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const isHovering = useRef(false);
 
   useEffect(() => {
     const dot  = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    const onMove = (e: MouseEvent) => {
-      gsap.set(dot,  { x: e.clientX, y: e.clientY });
-      gsap.to(ring,  { x: e.clientX, y: e.clientY, duration: 0.18, ease: "power2.out" });
-    };
-
-    // Hover : point vire au blanc, anneau s'agrandit légèrement
-    const onEnter = () => {
+    const enterState = () => {
+      if (isHovering.current) return;
+      isHovering.current = true;
       gsap.to(dot,  { backgroundColor: "#ffffff", scale: 1.4, duration: 0.3, ease: "power2.out" });
       gsap.to(ring, { scale: 1.6, borderColor: "#ffffff", opacity: 0.55, duration: 0.3, ease: "power2.out" });
     };
-    const onLeave = () => {
-      gsap.to(dot,  { backgroundColor: "#c41e1e", scale: 1,   duration: 0.3, ease: "power2.out" });
-      gsap.to(ring, { scale: 1,   borderColor: "#c41e1e", opacity: 0.4,  duration: 0.3, ease: "power2.out" });
+
+    const leaveState = () => {
+      if (!isHovering.current) return;
+      isHovering.current = false;
+      gsap.to(dot,  { backgroundColor: "#c41e1e", scale: 1, duration: 0.3, ease: "power2.out" });
+      gsap.to(ring, { scale: 1, borderColor: "#c41e1e", opacity: 0.4, duration: 0.3, ease: "power2.out" });
     };
 
-    // Clic → flash
+    const onMove = (e: MouseEvent) => {
+      gsap.set(dot,  { x: e.clientX, y: e.clientY });
+      gsap.to(ring,  { x: e.clientX, y: e.clientY, duration: 0.18, ease: "power2.out" });
+
+      // Détecte si l'élément sous la souris est cliquable
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      if (el) {
+        const computed = window.getComputedStyle(el).cursor;
+        const clickable = computed === "pointer" || el.closest("a, button, [role='button'], [onclick]") !== null;
+        if (clickable) enterState();
+        else leaveState();
+      }
+    };
+
     const onClick = () => {
       gsap.fromTo(ring,
         { scale: 1 },
@@ -40,24 +53,9 @@ export default function CustomCursor() {
     window.addEventListener("mousemove", onMove);
     window.addEventListener("click", onClick);
 
-    const attachHover = () => {
-      document.querySelectorAll("a, button, [role='button']").forEach((el) => {
-        el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mouseleave", onLeave);
-        el.addEventListener("mouseenter", onEnter);
-        el.addEventListener("mouseleave", onLeave);
-      });
-    };
-
-    attachHover();
-
-    const observer = new MutationObserver(attachHover);
-    observer.observe(document.body, { childList: true, subtree: true });
-
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("click", onClick);
-      observer.disconnect();
     };
   }, []);
 

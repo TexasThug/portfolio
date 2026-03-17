@@ -24,11 +24,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
-  cursor: none;
 }
 
-a, button, [role="button"] {
-  cursor: none;
+* {
+  cursor: none !important;
 }
 
 ::selection {

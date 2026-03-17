@@ -92,6 +92,7 @@ export default function SceneContact() {
 
   return (
     <section
+      id="contact"
       ref={sectionRef}
       className="relative min-h-screen bg-background flex flex-col justify-center px-8 md:px-20 py-24"
     >

@@ -3,8 +3,23 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const fr = {
+  sectionLabel: "03 — Contact",
+  heading: "On se parle ?",
+  subheading: "En recherche d'un CDI — chef de projet Data, Business Analyst.",
+  footer: "Chef de projet Data",
+};
+
+const en = {
+  sectionLabel: "03 — Contact",
+  heading: "Let's talk.",
+  subheading: "Looking for a full-time role — Data Project Manager, Business Analyst.",
+  footer: "Data Project Manager",
+};
 
 const links = [
   {
@@ -25,6 +40,9 @@ const links = [
 ];
 
 export default function SceneContact() {
+  const { lang } = useLanguage();
+  const t = lang === "fr" ? fr : en;
+
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -74,6 +92,7 @@ export default function SceneContact() {
 
   return (
     <section
+      id="contact"
       ref={sectionRef}
       className="relative min-h-screen bg-background flex flex-col justify-center px-8 md:px-20 py-24"
     >
@@ -85,13 +104,13 @@ export default function SceneContact() {
         {/* Heading */}
         <div ref={headingRef} className="mb-16">
           <p className="font-mono text-xs text-accent tracking-[0.3em] uppercase mb-4">
-            03 — Contact
+            {t.sectionLabel}
           </p>
           <h2 className="font-serif text-4xl md:text-6xl text-foreground font-light leading-tight">
-            On se parle ?
+            {t.heading}
           </h2>
           <p className="font-sans text-base text-foreground/50 mt-6 leading-relaxed max-w-md">
-            En recherche d'un CDI — chef de projet Data, Business Analyst.
+            {t.subheading}
           </p>
         </div>
 
@@ -129,7 +148,7 @@ export default function SceneContact() {
           Joffray DeAlberto — {new Date().getFullYear()}
         </span>
         <span className="font-mono text-[10px] text-foreground/20 tracking-widest uppercase">
-          Chef de projet Data
+          {t.footer}
         </span>
       </div>
     </section>
