@@ -31,13 +31,13 @@ export default function CustomCursor() {
       gsap.set(dot,  { x: e.clientX, y: e.clientY });
       gsap.to(ring,  { x: e.clientX, y: e.clientY, duration: 0.18, ease: "power2.out" });
 
-      // Remonte le DOM pour détecter cursor:pointer sur l'élément ou ses parents
+      // Remonte le DOM — lit le style inline (pas computed, car * cursor:none !important l'écrase)
       const el = document.elementFromPoint(e.clientX, e.clientY);
       let clickable = false;
       let node: Element | null = el;
       while (node && node !== document.documentElement) {
-        const cursor = window.getComputedStyle(node).cursor;
-        if (cursor === "pointer") { clickable = true; break; }
+        const inlineCursor = (node as HTMLElement).style?.cursor;
+        if (inlineCursor === "pointer") { clickable = true; break; }
         if (node.matches("a, button, [role='button']")) { clickable = true; break; }
         node = node.parentElement;
       }
