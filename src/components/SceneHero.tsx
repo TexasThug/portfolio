@@ -67,6 +67,57 @@ export default function SceneHero() {
 
   return (
     <section className="relative min-h-screen bg-background flex flex-col items-center justify-center overflow-hidden px-8">
+
+      {/* ── Bebas ghost typography ── */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+        {/* JOFFRAY — fantôme derrière le nom */}
+        <span style={{
+          position: "absolute",
+          top: "28%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontFamily: "var(--font-bebas)",
+          fontSize: "clamp(100px, 22vw, 320px)",
+          letterSpacing: "-0.01em",
+          color: "#f0ebe2",
+          opacity: 0.045,
+          whiteSpace: "nowrap",
+          lineHeight: 1,
+          userSelect: "none",
+        }}>JOFFRAY</span>
+
+        {/* DEALBERTO — décalé en bas à droite */}
+        <span style={{
+          position: "absolute",
+          top: "46%",
+          right: "-2%",
+          fontFamily: "var(--font-bebas)",
+          fontSize: "clamp(80px, 17vw, 260px)",
+          letterSpacing: "0.01em",
+          color: "#c41e1e",
+          opacity: 0.055,
+          whiteSpace: "nowrap",
+          lineHeight: 1,
+          userSelect: "none",
+        }}>DEALBERTO</span>
+
+        {/* DATA — vertical, côté gauche */}
+        <span style={{
+          position: "absolute",
+          top: "50%",
+          left: "-1%",
+          transform: "translateY(-50%) rotate(-90deg)",
+          transformOrigin: "left center",
+          fontFamily: "var(--font-bebas)",
+          fontSize: "clamp(48px, 9vw, 130px)",
+          letterSpacing: "0.25em",
+          color: "#f0ebe2",
+          opacity: 0.05,
+          whiteSpace: "nowrap",
+          userSelect: "none",
+        }}>DATA · BUSINESS · CRÉATIVITÉ</span>
+      </div>
+
       {/* Quote */}
       <div className="text-center mb-14 space-y-1">
         <p className="font-serif text-xl md:text-2xl text-foreground/60 italic">

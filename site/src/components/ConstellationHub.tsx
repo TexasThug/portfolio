@@ -347,7 +347,38 @@ export default function ConstellationHub() {
 
       {/* ── CONSTELLATION ── */}
       {!activeNode && (
-        <div ref={constellRef} className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
+        <div ref={constellRef} className="min-h-screen flex flex-col items-center justify-center px-6 py-16" style={{ position: "relative", overflow: "hidden" }}>
+
+          {/* Bebas ghost */}
+          <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+            <span style={{
+              position: "absolute",
+              bottom: "-4%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontFamily: "var(--font-bebas)",
+              fontSize: "clamp(90px, 20vw, 300px)",
+              letterSpacing: "0.06em",
+              color: "#f0ebe2",
+              opacity: 0.04,
+              whiteSpace: "nowrap",
+              userSelect: "none",
+              lineHeight: 1,
+            }}>UNIVERSE</span>
+            <span style={{
+              position: "absolute",
+              top: "4%",
+              left: "-1%",
+              fontFamily: "var(--font-bebas)",
+              fontSize: "clamp(40px, 7vw, 100px)",
+              letterSpacing: "0.2em",
+              color: "#c41e1e",
+              opacity: 0.06,
+              whiteSpace: "nowrap",
+              userSelect: "none",
+            }}>EXPLORE</span>
+          </div>
+
           <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-10">
             {ui.explore}
           </p>
