@@ -31,14 +31,18 @@ export default function CustomCursor() {
       gsap.set(dot,  { x: e.clientX, y: e.clientY });
       gsap.to(ring,  { x: e.clientX, y: e.clientY, duration: 0.18, ease: "power2.out" });
 
-      // Détecte si l'élément sous la souris est cliquable
+      // Remonte le DOM pour détecter cursor:pointer sur l'élément ou ses parents
       const el = document.elementFromPoint(e.clientX, e.clientY);
-      if (el) {
-        const computed = window.getComputedStyle(el).cursor;
-        const clickable = computed === "pointer" || el.closest("a, button, [role='button'], [onclick]") !== null;
-        if (clickable) enterState();
-        else leaveState();
+      let clickable = false;
+      let node: Element | null = el;
+      while (node && node !== document.documentElement) {
+        const cursor = window.getComputedStyle(node).cursor;
+        if (cursor === "pointer") { clickable = true; break; }
+        if (node.matches("a, button, [role='button']")) { clickable = true; break; }
+        node = node.parentElement;
       }
+      if (clickable) enterState();
+      else leaveState();
     };
 
     const onClick = () => {

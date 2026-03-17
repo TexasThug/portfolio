@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import LangToggle from "@/components/LangToggle";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingCTA from "@/components/FloatingCTA";
+import IntroScreen from "@/components/IntroScreen";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -37,6 +38,7 @@ export default function RootLayout({
         className={`${cormorant.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <LanguageProvider>
+          <IntroScreen />
           <CustomCursor />
           <FloatingCTA />
           <LangToggle />
