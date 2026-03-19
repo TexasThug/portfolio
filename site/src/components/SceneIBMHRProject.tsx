@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -66,6 +66,12 @@ const en = {
 
 const stack = ["Power BI", "DAX", "Power Query", "Excel", "Word"];
 
+const slides = [
+  { src: "/ibm-hr-01-vue-generale.png",  label: "Vue Générale — Attrition RH" },
+  { src: "/ibm-hr-02-profil-dept.png",   label: "Analyse par Profil et Département" },
+  { src: "/ibm-hr-03-cout-impact.png",   label: "Coût et Impact Financier" },
+];
+
 export default function SceneIBMHRProject({ onBack }: Props) {
   const { lang } = useLanguage();
   const t = lang === "fr" ? fr : en;
@@ -73,6 +79,7 @@ export default function SceneIBMHRProject({ onBack }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const statsRef     = useRef<(HTMLDivElement | null)[]>([]);
   const contentRef   = useRef<HTMLDivElement>(null);
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -140,11 +147,43 @@ export default function SceneIBMHRProject({ onBack }: Props) {
           ))}
         </div>
 
-        {/* Dashboard screenshot */}
-        <div className="mb-14 w-full overflow-hidden"
-          style={{ border: "1px solid rgba(240,235,226,0.08)" }}>
-          <img src="/ibm-hr-dashboard.png" alt="IBM HR Analytics Dashboard"
-            style={{ width: "100%", height: "auto", display: "block" }} />
+        {/* Carousel dashboard */}
+        <div className="mb-14">
+          <div className="relative w-full overflow-hidden"
+            style={{ border: "1px solid rgba(240,235,226,0.08)" }}>
+            <img
+              src={slides[slide].src}
+              alt={slides[slide].label}
+              style={{ width: "100%", height: "auto", display: "block", transition: "opacity 0.3s ease" }}
+            />
+          </div>
+
+          {/* Nav */}
+          <div className="flex items-center justify-between mt-4 px-1">
+            <button
+              onClick={() => setSlide(s => Math.max(0, s - 1))}
+              disabled={slide === 0}
+              className="font-mono text-[10px] tracking-widest uppercase text-foreground/40 hover:text-accent disabled:opacity-20 transition-colors">
+              ← prev
+            </button>
+            <div className="flex flex-col items-center gap-2">
+              <span className="font-mono text-[9px] text-foreground/30 tracking-widest">
+                {slides[slide].label}
+              </span>
+              <div className="flex gap-2">
+                {slides.map((_, i) => (
+                  <button key={i} onClick={() => setSlide(i)}
+                    style={{ width: 20, height: 2, background: i === slide ? "#c41e1e" : "rgba(240,235,226,0.2)", transition: "background 0.2s" }} />
+                ))}
+              </div>
+            </div>
+            <button
+              onClick={() => setSlide(s => Math.min(slides.length - 1, s + 1))}
+              disabled={slide === slides.length - 1}
+              className="font-mono text-[10px] tracking-widest uppercase text-foreground/40 hover:text-accent disabled:opacity-20 transition-colors">
+              next →
+            </button>
+          </div>
         </div>
 
         {/* Content grid */}
