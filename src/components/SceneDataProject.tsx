@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useLanguage } from "@/context/LanguageContext";
+import ProjectGithubLink from "./ProjectGithubLink";
 
 interface Props { onBack: () => void }
 
@@ -302,6 +303,8 @@ export default function SceneDataProject({ onBack }: Props) {
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "2px", background: "rgba(240,235,226,0.08)" }}>
         <div ref={progressRef} style={{ height: "100%", width: "0%", background: "#c41e1e" }} />
       </div>
+
+      <ProjectGithubLink href="https://github.com/TexasThug/kobe-bryant-powerbi" />
     </div>
   );
 }
