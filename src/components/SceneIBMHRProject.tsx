@@ -323,29 +323,87 @@ export default function SceneIBMHRProject({ onBack }: Props) {
           </div>
         </div>
 
-        {/* GitHub link */}
-        <div className="mt-16 pt-8" style={{ borderTop: "1px solid rgba(240,235,226,0.06)" }}>
-          <a href="https://github.com/TexasThug/IBM-HR-BA-Mission" target="_blank" rel="noopener noreferrer"
-            className="group inline-flex items-center gap-4 py-4 px-6 transition-all duration-200"
-            style={{ border: "1px solid rgba(240,235,226,0.12)" }}
-            onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(240,235,226,0.35)")}
-            onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(240,235,226,0.12)")}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ color: "rgba(240,235,226,0.5)", flexShrink: 0 }}>
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-            <div>
-              <p className="font-mono text-[11px] tracking-widest uppercase text-foreground/70 group-hover:text-foreground transition-colors">
-                IBM-HR-BA-Mission
-              </p>
-              <p className="font-mono text-[9px] text-foreground/30 mt-0.5 tracking-wide">
-                github.com/TexasThug
-              </p>
-            </div>
-            <span className="font-mono text-sm text-foreground/30 group-hover:text-foreground/70 group-hover:translate-x-1 transition-all duration-200 ml-2">→</span>
-          </a>
+        {/* ── Recommandations ── */}
+        <div className="mt-16">
+          <div className="flex items-center gap-6 mb-10">
+            <div className="w-8 h-px bg-accent" />
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-foreground/35">
+              Note de recommandations
+            </p>
+          </div>
+
+          {/* 3 constats clés */}
+          <div className="grid md:grid-cols-3 gap-px mb-2" style={{ background: "rgba(240,235,226,0.06)" }}>
+            {[
+              { label: "Jeunes collaborateurs", stat: "39%", detail: "d'attrition chez les -25 ans — le plus haut de toutes les tranches" },
+              { label: "Département Sales", stat: "20,6%", detail: "d'attrition — Sales Representatives à 40%, facteur multiplicateur x2" },
+              { label: "RH féminines", stat: "30%", detail: "vs 14% pour les hommes dans le même département" },
+            ].map((c, i) => (
+              <div key={i} className="px-6 py-8" style={{ background: "#0e0e0e" }}>
+                <p className="font-serif font-light text-foreground mb-1" style={{ fontSize: "clamp(24px, 3vw, 36px)" }}>{c.stat}</p>
+                <p className="font-mono text-[9px] tracking-widest uppercase text-accent mb-3">{c.label}</p>
+                <p className="font-sans text-xs text-foreground/35 leading-relaxed">{c.detail}</p>
+              </div>
+            ))}
+          </div>
+          <p className="font-mono text-[8px] text-foreground/20 tracking-widest text-right mb-10">
+            + Constat transversal : 30% des collaborateurs en heures sup quittent l'entreprise vs 10% — facteur ×3
+          </p>
+
+          {/* 4 recommandations */}
+          <div className="space-y-px">
+            {[
+              { n: "R1", title: "Structurer l'intégration des jeunes collaborateurs", resp: "DRH + Directeurs de site",
+                actions: ["Onboarding structuré sur 24 mois avec points carrière à 6, 12 et 24 mois", "Mentor interne dès l'embauche pour chaque -25 ans", "Entretiens semestriels systématiques < 3 ans d'ancienneté", "Étudier des primes d'ancienneté à 2 et 5 ans avec le DAF"] },
+              { n: "R2", title: "Réduire la pression sur le département Sales", resp: "Directeur commercial + DRH",
+                actions: ["Entretiens individuels avec les Sales Representatives", "Système de reconnaissance des performances (primes, challenges)", "Réviser la structure des niveaux de poste pour offrir des perspectives claires"] },
+              { n: "R3", title: "Investiguer l'attrition féminine en RH", resp: "DRH + médiateur interne",
+                actions: ["Entretiens individuels confidentiels avec les collaboratrices RH", "Analyser les comptes-rendus d'entretiens de sortie disponibles", "Accompagnement managérial ciblé si facteurs identifiés"] },
+              { n: "R4", title: "Suivre les heures supplémentaires en temps réel", resp: "Directeurs de site + DRH",
+                actions: ["Indicateur heures sup dans les reportings mensuels", "Seuil d'alerte défini par département"] },
+            ].map((r) => (
+              <div key={r.n} style={{ borderLeft: "2px solid #c41e1e", background: "rgba(240,235,226,0.02)", padding: "20px 24px", marginBottom: 2 }}>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-[9px] text-accent tracking-widest">{r.n}</span>
+                    <p className="font-serif text-base text-foreground font-light">{r.title}</p>
+                  </div>
+                  <span className="font-mono text-[8px] tracking-widest uppercase text-foreground/25 flex-shrink-0 hidden md:block">{r.resp}</span>
+                </div>
+                <div className="flex flex-col gap-1.5 pl-8">
+                  {r.actions.map((a, i) => (
+                    <p key={i} className="font-sans text-xs text-foreground/35 leading-relaxed">→ {a}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Spacer pour le bouton GitHub fixe */}
+        <div className="h-24" />
       </div>
+
+      {/* GitHub fixe — au-dessus du CTA flottant */}
+      <a href="https://github.com/TexasThug/IBM-HR-BA-Mission" target="_blank" rel="noopener noreferrer"
+        className="group"
+        style={{
+          position: "fixed", bottom: 84, right: 28, zIndex: 1000,
+          display: "flex", alignItems: "center", gap: 8,
+          padding: "8px 14px",
+          background: "rgba(14,14,14,0.9)", backdropFilter: "blur(8px)",
+          border: "1px solid rgba(240,235,226,0.12)",
+        }}
+        onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(240,235,226,0.35)")}
+        onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(240,235,226,0.12)")}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style={{ color: "rgba(240,235,226,0.4)", flexShrink: 0 }}>
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span className="font-mono text-[9px] tracking-widest uppercase text-foreground/50 group-hover:text-foreground/80 transition-colors">
+          IBM-HR-BA-Mission
+        </span>
+        <span className="font-mono text-[9px] text-foreground/25 group-hover:text-foreground/50 transition-colors">→</span>
+      </a>
     </div>
   );
 }
