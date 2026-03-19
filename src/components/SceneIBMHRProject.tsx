@@ -125,19 +125,26 @@ export default function SceneIBMHRProject({ onBack }: Props) {
           </div>
         </div>
 
-        {/* Stats — chiffres clés */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px mb-16"
-          style={{ background: "rgba(240,235,226,0.06)" }}>
+        {/* Stats — style Kobe */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
           {t.stats.map((s, i) => (
-            <div key={i} ref={el => { statsRef.current[i] = el; }}
-              className="flex flex-col justify-center px-8 py-10 opacity-0"
-              style={{ background: "#0e0e0e" }}>
-              <p style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(36px, 5vw, 64px)", color: "#c41e1e", lineHeight: 1, letterSpacing: "0.02em" }}>
+            <div key={i} ref={el => { statsRef.current[i] = el; }} className="opacity-0">
+              <p className="font-serif font-light text-foreground"
+                style={{ fontSize: "clamp(28px, 3.5vw, 52px)", lineHeight: 1 }}>
                 {s.value}
               </p>
-              <p className="font-mono text-[9px] tracking-widest uppercase text-foreground/35 mt-2 leading-relaxed">{s.label}</p>
+              <p className="font-mono text-[9px] text-foreground/30 tracking-widest uppercase mt-2 leading-relaxed">
+                {s.label}
+              </p>
             </div>
           ))}
+        </div>
+
+        {/* Dashboard screenshot */}
+        <div className="mb-14 w-full overflow-hidden"
+          style={{ border: "1px solid rgba(240,235,226,0.08)" }}>
+          <img src="/ibm-hr-dashboard.png" alt="IBM HR Analytics Dashboard"
+            style={{ width: "100%", height: "auto", display: "block" }} />
         </div>
 
         {/* Content grid */}
