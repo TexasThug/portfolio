@@ -238,6 +238,91 @@ export default function SceneIBMHRProject({ onBack }: Props) {
           </div>
         </div>
 
+        {/* ── Backlog User Stories ── */}
+        <div className="mt-16">
+          <div className="flex items-center gap-6 mb-10">
+            <div className="w-8 h-px bg-accent" />
+            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-foreground/35">
+              Backlog User Stories — MoSCoW
+            </p>
+          </div>
+
+          <div className="space-y-px">
+            {[
+              {
+                n: "US-01", title: "Vision globale de l'attrition", priority: "MUST HAVE",
+                role: "DRH",
+                want: "Visualiser le taux d'attrition global et son évolution dans le temps",
+                goal: "Identifier les tendances et en informer la direction",
+                criteria: ["Taux d'attrition affiché en % sur la page principale", "Évolution visible sur au moins 2 périodes comparables", "Filtre par département disponible"],
+              },
+              {
+                n: "US-02", title: "Analyse par département et par site", priority: "MUST HAVE",
+                role: "DRH",
+                want: "Comparer le taux d'attrition par département et par site",
+                goal: "Identifier les zones les plus exposées et prioriser les actions",
+                criteria: ["Taux d'attrition affiché par département et par site", "Classement visuel des départements critiques", "Aucune donnée nominative affichée"],
+              },
+              {
+                n: "US-03", title: "Analyse par profil et ancienneté", priority: "MUST HAVE",
+                role: "DRH",
+                want: "Visualiser les caractéristiques des employés qui quittent l'entreprise",
+                goal: "Identifier les profils les plus à risque de départ",
+                criteria: ["Répartition des départs par tranche d'ancienneté", "Répartition par niveau de poste visible", "Comparaison attrition / non-attrition par profil"],
+              },
+              {
+                n: "US-04", title: "Impact des heures supplémentaires", priority: "MUST HAVE",
+                role: "Directeur de site",
+                want: "Visualiser le lien entre heures supplémentaires et départs",
+                goal: "Identifier si la surcharge de travail est un facteur d'attrition",
+                criteria: ["Proportion d'employés partants ayant fait des heures sup", "Comparaison heures sup / taux d'attrition par département", "Données agrégées, pas de comparaison individuelle nominative"],
+              },
+              {
+                n: "US-05", title: "Satisfaction au travail", priority: "SHOULD HAVE",
+                role: "DRH",
+                want: "Visualiser les niveaux de satisfaction par département",
+                goal: "Identifier les zones de démotivation avant qu'elles génèrent des départs",
+                criteria: ["Score moyen de satisfaction par département", "Corrélation satisfaction / attrition visible"],
+              },
+              {
+                n: "US-06", title: "Coût de l'attrition", priority: "SHOULD HAVE",
+                role: "DRH",
+                want: "Disposer d'une estimation du coût généré par les départs",
+                goal: "Justifier l'investissement dans des actions de rétention auprès du DAF",
+                criteria: ["Coût estimé par départ calculé (recrutement + formation)", "Coût total annuel affiché", "Comparaison coût attrition / coût rétention visible"],
+              },
+              {
+                n: "US-07", title: "Filtres et navigation", priority: "SHOULD HAVE",
+                role: "DRH ou Directeur de site",
+                want: "Pouvoir filtrer toutes les vues par site, département et période",
+                goal: "Adapter l'analyse à mon périmètre de responsabilité",
+                criteria: ["Filtres site / département / période sur toutes les pages", "Sélection d'un filtre met à jour tous les visuels", "Bouton reset remet les filtres à zéro en un clic"],
+              },
+            ].map((us) => (
+              <div key={us.n} style={{ borderLeft: us.priority === "MUST HAVE" ? "2px solid #c41e1e" : "2px solid rgba(240,235,226,0.12)", background: "rgba(240,235,226,0.02)", padding: "20px 24px", marginBottom: 2 }}>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-[9px] text-foreground/25 tracking-widest">{us.n}</span>
+                    <p className="font-serif text-base text-foreground font-light">{us.title}</p>
+                  </div>
+                  <span className="font-mono text-[8px] tracking-widest uppercase flex-shrink-0 px-2 py-1"
+                    style={{ color: us.priority === "MUST HAVE" ? "#c41e1e" : "rgba(240,235,226,0.35)", border: `1px solid ${us.priority === "MUST HAVE" ? "rgba(196,30,30,0.4)" : "rgba(240,235,226,0.1)"}` }}>
+                    {us.priority}
+                  </span>
+                </div>
+                <p className="font-sans text-xs text-foreground/35 leading-relaxed mb-3">
+                  <span className="text-foreground/20">En tant que</span> {us.role} — <span className="text-foreground/20">je veux</span> {us.want}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {us.criteria.map((c, i) => (
+                    <span key={i} className="font-mono text-[8px] text-foreground/30 tracking-wide">✓ {c}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* GitHub link */}
         <div className="mt-16 pt-8" style={{ borderTop: "1px solid rgba(240,235,226,0.06)" }}>
           <a href="https://github.com/TexasThug/IBM-HR-BA-Mission" target="_blank" rel="noopener noreferrer"
