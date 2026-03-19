@@ -348,7 +348,13 @@ export default function ConstellationHub() {
   }, [activeNode]);
 
   const handleBack = useCallback(() => {
-    if (isTransitioning || !universeRef.current) return;
+    if (isTransitioning) return;
+    // Scenes with their own fixed overlay (about/data/strategie) handle their own fade-out
+    // and call onBack after — just reset state directly
+    if (!universeRef.current) {
+      setActiveNode(null);
+      return;
+    }
     setIsTransitioning(true);
     gsap.to(universeRef.current, {
       opacity: 0, duration: 0.35, ease: "power2.in",
