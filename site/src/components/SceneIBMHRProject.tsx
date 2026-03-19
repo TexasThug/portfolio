@@ -117,10 +117,14 @@ export default function SceneIBMHRProject({ onBack }: Props) {
         {/* Title block */}
         <div className="mb-14">
           <p className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase mb-4">{t.category}</p>
-          <h1 className="font-serif font-light text-foreground leading-none mb-3"
-            style={{ fontSize: "clamp(40px, 7vw, 88px)" }}>
-            {t.title}
-          </h1>
+          <a href="https://github.com/TexasThug/IBM-HR-BA-Mission" target="_blank" rel="noopener noreferrer"
+            className="group inline-block">
+            <h1 className="font-serif font-light text-foreground leading-none mb-3 group-hover:text-accent transition-colors duration-300"
+              style={{ fontSize: "clamp(40px, 7vw, 88px)" }}>
+              {t.title}
+              <span className="font-mono text-[16px] text-foreground/20 group-hover:text-accent ml-4 align-middle transition-colors duration-300">↗</span>
+            </h1>
+          </a>
           <p className="font-mono text-sm text-foreground/35 tracking-wider">{t.subtitle}</p>
 
           {/* Stack tags */}
