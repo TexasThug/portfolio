@@ -37,7 +37,7 @@ export default function FloatingCTA() {
       onMouseLeave={handleMouseLeave}
       style={{
         position: "fixed",
-        bottom: 28,
+        bottom: 74,
         right: 28,
         zIndex: 1000,
         display: "flex",
