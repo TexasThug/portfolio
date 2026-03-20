@@ -12,7 +12,7 @@ const fr = {
   category: "Mission BA Simulée",
   title: "IBM HR Analytics",
   subtitle: "Analyse d'attrition RH & recommandations décisionnelles",
-  context: "Simulation d'une mission Business Analyst complète sur le dataset IBM HR Analytics Employee Attrition (Kaggle).\nObjectif : analyser les facteurs d'attrition et produire des recommandations pour une DRH fictive.",
+  context: "Projet d'entraînement — démarche BA complète simulée sur le dataset IBM HR Analytics Employee Attrition (Kaggle).\nObjectif : analyser les facteurs d'attrition et produire des recommandations pour une DRH fictive.",
   deliverablesLabel: "Livrables",
   deliverables: [
     "Note de cadrage",
@@ -41,7 +41,7 @@ const en = {
   category: "Simulated BA Mission",
   title: "IBM HR Analytics",
   subtitle: "HR Attrition Analysis & Decision-Making Recommendations",
-  context: "Simulation of a complete Business Analyst mission on the IBM HR Analytics Employee Attrition dataset (Kaggle).\nGoal: analyze attrition factors and produce recommendations for a fictional HR department.",
+  context: "Training project — full BA methodology applied to the IBM HR Analytics Employee Attrition dataset (Kaggle).\nGoal: analyze attrition factors and produce recommendations for a fictional HR department.",
   deliverablesLabel: "Deliverables",
   deliverables: [
     "Project framing note",

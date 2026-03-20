@@ -18,11 +18,10 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
         back: "← Constellation",
         category: "Cas Business",
         heading: "Études de cas",
-        next: "Prochain cas...",
         cases: [{
           id: "payfit", number: "01",
           title: "PayFit Hackathon",
-          subtitle: "Stratégie SEO + Outil d'acquisition",
+          subtitle: "Eugenia School · 3ème / 12 équipes",
           description: "Calculette salaire brut/net complète — taux URSSAF 2025, fiche de paie décodée, simulations PPV/PAS. Conçue pour générer du trafic organique et convertir.",
           stack: ["React", "TypeScript", "Lovable"],
           status: "Terminé", year: "2025",
@@ -30,7 +29,7 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
           id: "ibm", number: "02",
           title: "IBM HR Analytics",
           subtitle: "Mission BA simulée — Attrition RH",
-          description: "Analyse complète d'attrition RH sur le dataset Kaggle IBM. 16,12% de départs, 7M€ de coût estimé, 4 recommandations actionnables. Livrables BA complets : cadrage, backlog, dashboard Power BI 4 pages, note de recommandations.",
+          description: "Projet d'entraînement — focus sur la démarche BA complète. Dataset Kaggle IBM : 16,12% d'attrition, 7M€ de coût estimé, 4 recommandations actionnables. Livrables : cadrage, backlog, dashboard Power BI 4 pages, note de recommandations.",
           stack: ["Power BI", "DAX", "Power Query", "Excel"],
           status: "Terminé", year: "2026",
         }],
@@ -39,11 +38,10 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
         back: "← Constellation",
         category: "Business Cases",
         heading: "Case Studies",
-        next: "Next case...",
         cases: [{
           id: "payfit", number: "01",
           title: "PayFit Hackathon",
-          subtitle: "SEO Strategy + Acquisition Tool",
+          subtitle: "Eugenia School · 3rd / 12 teams",
           description: "Complete gross/net salary calculator — 2025 URSSAF rates, decoded payslip, PPV/withholding simulations. Designed to generate organic traffic and convert.",
           stack: ["React", "TypeScript", "Lovable"],
           status: "Completed", year: "2025",
@@ -51,7 +49,7 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
           id: "ibm", number: "02",
           title: "IBM HR Analytics",
           subtitle: "Simulated BA Mission — HR Attrition",
-          description: "Full HR attrition analysis on Kaggle IBM dataset. 16.12% departure rate, €7M estimated cost, 4 actionable recommendations. Complete BA deliverables: framing, backlog, 4-page Power BI dashboard, recommendations report.",
+          description: "Training project — focus on end-to-end BA methodology. Kaggle IBM dataset: 16.12% attrition rate, €7M estimated cost, 4 actionable recommendations. Deliverables: framing, backlog, 4-page Power BI dashboard, recommendations report.",
           stack: ["Power BI", "DAX", "Power Query", "Excel"],
           status: "Completed", year: "2026",
         }],
@@ -114,10 +112,6 @@ export default function SceneCasBusinessHub({ onBack }: Props) {
             </button>
           ))}
 
-          <div className="flex items-center gap-8 py-6 px-6 opacity-25">
-            <span className="font-mono text-[10px] text-foreground/20 tracking-widest w-8 flex-shrink-0">03</span>
-            <p className="font-serif text-2xl text-foreground/20 font-light italic">{t.next}</p>
-          </div>
         </div>
       </div>
     </div>
