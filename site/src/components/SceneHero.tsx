@@ -7,14 +7,16 @@ import { useLanguage } from "@/context/LanguageContext";
 const fr = {
   line1: "Relier les points,",
   line2: "éclairer les décisions.",
-  subtitle: "Chef de projet Data · Business Analyst",
+  subtitle: "Business Analyst · Data",
+  valueProp: "BA Data déterminé — du cadrage au dashboard, je livre.",
   scroll: "Scroll",
 };
 
 const en = {
   line1: "Connecting the dots,",
   line2: "illuminating decisions.",
-  subtitle: "Data Project Manager · Business Analyst",
+  subtitle: "Business Analyst · Data",
+  valueProp: "Determined Data BA — from framing to dashboard, I deliver.",
   scroll: "Scroll",
 };
 
@@ -98,6 +100,11 @@ export default function SceneHero() {
         className="font-mono text-xs md:text-sm text-foreground/40 mt-8 tracking-[0.4em] uppercase"
       >
         {t.subtitle}
+      </p>
+
+      {/* Value proposition */}
+      <p className="font-sans text-sm text-foreground/35 mt-3 tracking-wide italic">
+        {t.valueProp}
       </p>
 
       {/* Red accent line — début du fil rouge */}
